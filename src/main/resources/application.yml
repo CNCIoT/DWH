@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/interface_db
+    username: postgres
+    password: 1
+    platform: postgres
+    driver-class-name: org.postgresql.Driver
+  cache:
+    jcache:
+      config: ehcache.xml
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: collector
+server:
+  port: 5678
+
+
+
+
+
