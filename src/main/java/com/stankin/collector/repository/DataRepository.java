@@ -1,6 +1,6 @@
 package com.stankin.collector.repository;
 
-import com.stankin.collector.domain.table.Data;
+import com.stankin.collector.domain.document.Data;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.Repository;

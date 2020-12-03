@@ -3,23 +3,22 @@ package com.stankin.collector.converter;
 import com.google.gson.Gson;
 import com.stankin.collector.domain.Values;
 import com.stankin.collector.domain.table.Data;
-import com.stankin.collector.domain.table.DataDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class DataDTOTODataConverter implements Converter<DataDTO, Data> {
+public class DataDTOTODataConverter implements Converter<Data, com.stankin.collector.domain.document.Data> {
     @Override
-    public Data convert(DataDTO dataDTO) {
+    public com.stankin.collector.domain.document.Data convert(Data dataRDBM) {
         Gson gson = new Gson();
-        Data data = new Data();
-        log.info(dataDTO.getValue());
-        data.setValue(gson.fromJson(dataDTO.getValue(), Values.class));
-        data.setCreated(dataDTO.getCreated());
-        data.setDeviceId(dataDTO.getDeviceId());
-        data.setId(dataDTO.getId());
+        com.stankin.collector.domain.document.Data data = new com.stankin.collector.domain.document.Data();
+        log.info(dataRDBM.getValue());
+        data.setValue(gson.fromJson(dataRDBM.getValue(), Values.class));
+        data.setCreated(dataRDBM.getCreated());
+        data.setDeviceId(dataRDBM.getDeviceId());
+        data.setId(dataRDBM.getId());
         return data;
     }
 }

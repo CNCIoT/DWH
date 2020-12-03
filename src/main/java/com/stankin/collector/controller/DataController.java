@@ -1,6 +1,6 @@
 package com.stankin.collector.controller;
 
-import com.stankin.collector.domain.table.Data;
+import com.stankin.collector.domain.document.Data;
 import com.stankin.collector.service.DataService;
 import com.stankin.collector.utils.RestUtil;
 import io.swagger.v3.oas.annotations.Operation;

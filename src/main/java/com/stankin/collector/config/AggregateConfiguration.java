@@ -1,6 +1,6 @@
 package com.stankin.collector.config;
 
-import com.stankin.collector.domain.table.Data;
+import com.stankin.collector.domain.document.Data;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

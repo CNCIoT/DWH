@@ -6,7 +6,6 @@ import com.stankin.collector.converter.DataTODataDTOConverter;
 import com.stankin.collector.domain.Value;
 import com.stankin.collector.domain.Values;
 import com.stankin.collector.domain.table.Data;
-import com.stankin.collector.domain.table.DataDTO;
 import com.stankin.collector.mongorepository.DataMongoRepository;
 import com.stankin.collector.repository.DataDTORepository;
 import com.stankin.collector.repository.DataRepository;
@@ -48,7 +47,7 @@ public class DataService {
     /**
      * @param data
      */
-    public void save(@NotNull Data data) {
+    public void save(@NotNull com.stankin.collector.domain.document.Data data) {
         validateRequest(data);
         try {
             dataRepository.save(data.getDeviceId(), new Gson().toJson(data.getValue()), data.getCreated());
@@ -58,7 +57,7 @@ public class DataService {
         dataMongoRepository.save(Objects.requireNonNull(dataTODataDTOConverter.convert(data)));
     }
 
-    private void validateRequest(@NotNull Data data) {
+    private void validateRequest(@NotNull com.stankin.collector.domain.document.Data data) {
         Values value = data.getValue();
         Map<String, Value> valueMap = value.getValueList();
         valueMap.forEach((key, value1) -> {
@@ -70,9 +69,9 @@ public class DataService {
         });
     }
 
-    public List<Data> findByDeviceIdWithRows(@NotNull Long deviceId,
-                                             @NotNull Long rows) {
-        List<DataDTO> dataDTOList = dataDTORepository.findByDeviceIdWithRows(deviceId, rows);
-        return dataDTOList.stream().map(dataDTOTODataConverter::convert).collect(Collectors.toList());
+    public List<com.stankin.collector.domain.document.Data> findByDeviceIdWithRows(@NotNull Long deviceId,
+                                                                                   @NotNull Long rows) {
+        List<Data> dataList = dataDTORepository.findByDeviceIdWithRows(deviceId, rows);
+        return dataList.stream().map(dataDTOTODataConverter::convert).collect(Collectors.toList());
     }
 }

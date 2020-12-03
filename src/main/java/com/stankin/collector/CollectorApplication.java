@@ -23,8 +23,8 @@ import javax.servlet.MultipartConfigElement;
 
 @SpringBootApplication
 @EnableSwagger2
-@OpenAPIDefinition(servers = { @Server(url = "https://dwh.kovalev.team"),
-		@Server(url = "http://localhost:5678") })
+//@OpenAPIDefinition(servers = { @Server(url = "https://dwh.kovalev.team"),
+//		@Server(url = "http://localhost:5678") })
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.stankin.collector.repository")
 @EntityScan("com.stankin.collector.domain")

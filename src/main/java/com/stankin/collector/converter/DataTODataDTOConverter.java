@@ -1,7 +1,7 @@
 package com.stankin.collector.converter;
 
 import com.stankin.collector.document.DataDocument;
-import com.stankin.collector.domain.table.Data;
+import com.stankin.collector.domain.document.Data;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
