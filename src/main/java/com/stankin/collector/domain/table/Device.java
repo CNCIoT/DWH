@@ -13,6 +13,8 @@ public class Device {
     @Id
     @Column("id")
     private Long id;
+    @Column("name")
+    private String name;
     @Column("device_type_id")
     private Long deviceTypeId;
     @Column("created_at")

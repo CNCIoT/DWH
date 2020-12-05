@@ -13,4 +13,5 @@ public class HubController {
     public HubController(HubService hubService) {
         this.hubService = hubService;
     }
+
 }
