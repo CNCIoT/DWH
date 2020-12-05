@@ -11,14 +11,16 @@ import java.util.Date;
 @Table("hub_configs")
 public class HubConfig {
     @Id
-    @Column("ID")
+    @Column("id")
     private Long id;
-    @Column("HUB_ID")
+    @Column("hub_id")
     private Long hubId;
     @Column("config")
     private String config;
-    @Column("CREATED_AT")
+    @Column("created_at")
     private Date createdAt;
-    @Column("UPDATED_AT")
+    @Column("updated_at")
     private Date updatedAt;
+    @Column("hash")
+    private String hash;
 }

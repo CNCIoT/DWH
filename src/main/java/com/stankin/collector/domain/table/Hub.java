@@ -11,18 +11,18 @@ import java.util.Date;
 @Table("hubs")
 public class Hub {
     @Id
-    @Column("ID")
+    @Column("id")
     private Long id;
-    @Column("NAME")
+    @Column("name")
     private String name;
-    @Column("LOCATION")
+    @Column("location")
     private String location;
-    @Column("DESCRIPTION")
+    @Column("description")
     private String description;
-    @Column("V_VER")
+    @Column("v_ver")
     private String vVer;
-    @Column("CREATED_AT")
+    @Column("created_at")
     private Date createdAt;
-    @Column("UPDATED_AT")
+    @Column("updated_at")
     private Date updatedAt;
 }

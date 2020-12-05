@@ -8,15 +8,13 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.util.Date;
 
 @Data
-@Table("hub2devices")
-public class Hub2Device {
+@Table("devices")
+public class Device {
     @Id
     @Column("id")
     private Long id;
-    @Column("hub_id")
-    private Long hubId;
-    @Column("device_id")
-    private Long deviceId;
+    @Column("device_type_id")
+    private Long deviceTypeId;
     @Column("created_at")
     private Date createdAt;
     @Column("updated_at")
