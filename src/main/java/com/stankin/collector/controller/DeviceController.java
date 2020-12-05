@@ -53,13 +53,17 @@ public class DeviceController {
     @Operation(summary = "Получение cущности Device по id",
             parameters = {
                     @Parameter(name = "id", required = true)
-            }, responses = {
-            @ApiResponse(responseCode = RestUtil.HTTP_OK,
-                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Device.class))),
-            @ApiResponse(responseCode = RestUtil.BAD_GATEWAY,
-                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
-    })
+            },
+            responses = {
+                    @ApiResponse(responseCode = RestUtil.HTTP_OK,
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = Device.class))),
+                    @ApiResponse(responseCode = RestUtil.BAD_GATEWAY,
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
+                    @ApiResponse(responseCode = RestUtil.NOT_FOUND,
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+                    )
+            })
     @GetMapping("/findById")
     public ResponseEntity<Device> findById(@NotNull @RequestParam("id") Long id) {
         Optional<Device> deviceOptional = deviceService.findById(id);
