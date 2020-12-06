@@ -1,11 +1,14 @@
 package com.stankin.collector.service;
 
+import com.google.gson.Gson;
 import com.stankin.collector.domain.table.Hub;
+import com.stankin.collector.repository.HubJdbcRepository;
 import com.stankin.collector.repository.HubRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -15,20 +18,25 @@ import java.util.Optional;
 public class HubService {
 
     private final HubRepository hubRepository;
+    private final HubJdbcRepository hubJdbcRepository;
 
-    public HubService(HubRepository hubRepository) {
+    public HubService(HubRepository hubRepository,
+                      HubJdbcRepository hubJdbcRepository) {
         this.hubRepository = hubRepository;
+        this.hubJdbcRepository = hubJdbcRepository;
     }
 
     public Hub save(@NotNull Hub hub) {
-        Optional<Hub> hubOptional = hubRepository.findById(hub.getId());
-        if (hubOptional.isPresent()) {
-            log.trace("update existing hub(id:{})={}", hub.getId(), hub);
-            return hubRepository.save(hub);
-        }
-        hub.setId(null);
-        log.trace("create new hub={}", hub);
-        return hubRepository.save(hub);
+            try {
+              return  hubJdbcRepository.save(hub, null);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            return null;
+    }
+
+    private void updateDeviceListAvailable(@NotNull final int id, @NotNull final String deviceListAvailable) {
+
     }
 
     public List<Hub> findAll() {
@@ -45,7 +53,7 @@ public class HubService {
         hubRepository.delete(hub);
     }
 
-    public Hub mockHub(){
+    public Hub mockHub() {
         Hub hub = new Hub();
         hub.setId(-1L);
         hub.setCreatedAt(new Date());

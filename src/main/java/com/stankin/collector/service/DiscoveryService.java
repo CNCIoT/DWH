@@ -50,6 +50,7 @@ public class DiscoveryService {
             Hub2Device newHub2Device = hub2DeviceService.save(hub2Device);
             log.trace("create newHub2Device... entity={}", newHub2Device);
         }
+
         responseRegHub.setDeviceIds(deviceMap);
         return responseRegHub;
     }
@@ -58,7 +59,7 @@ public class DiscoveryService {
         log.trace("Entering method createEntityHub2Device... hub={}, device={}", hub, device);
         Hub2Device hub2Device = new Hub2Device();
         hub2Device.setId(-1L);
-        hub2Device.setHubId(hub.getId());
+        hub2Device.setHubId(new Long(hub.getId()));
         hub2Device.setDeviceId(device.getId());
         hub2Device.setCreatedAt(new Date());
         hub2Device.setUpdatedAt(new Date());

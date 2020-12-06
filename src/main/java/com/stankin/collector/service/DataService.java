@@ -44,9 +44,6 @@ public class DataService {
         this.inputTypeService = inputTypeService;
     }
 
-    /**
-     * @param data
-     */
     public void save(@NotNull com.stankin.collector.domain.document.Data data) {
         validateRequest(data);
         try {
