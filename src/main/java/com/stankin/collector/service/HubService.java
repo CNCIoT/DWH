@@ -1,6 +1,5 @@
 package com.stankin.collector.service;
 
-import com.google.gson.Gson;
 import com.stankin.collector.domain.table.Hub;
 import com.stankin.collector.repository.HubJdbcRepository;
 import com.stankin.collector.repository.HubRepository;

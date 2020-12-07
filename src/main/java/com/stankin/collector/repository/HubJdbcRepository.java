@@ -10,5 +10,5 @@ public interface HubJdbcRepository {
 
     Hub save(Hub hub, String json) throws SQLException;
     Optional<Hub> findById(@NotNull Long id);
-    void update();
+    void update(@NotNull Hub hub, @NotNull String json);
 }

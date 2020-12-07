@@ -3,7 +3,6 @@ package com.stankin.collector.repository.impl;
 import com.stankin.collector.domain.table.Hub;
 import com.stankin.collector.repository.HubJdbcRepository;
 import com.stankin.collector.repository.HubRepository;
-import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.postgresql.util.PGobject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +29,10 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
     private final String SELECT_HUB = "SELECT name, location, description, v_ver, created_at, " +
             "updated_at, device_list_available::text, id\n" +
             "\tFROM public.hubs WHERE id = ?";
+
+    private final String UPDATE_HUB = "UPDATE public.hubs\n" +
+            "\tSET name=?, location=?, description=?, v_ver=?, created_at=?, updated_at=?, device_list_available=?, id=?\n" +
+            "\tWHERE id = ?";
 
     @Autowired
     public HubJdbcRepositoryImpl(JdbcTemplate jdbcTemplate,
@@ -71,6 +74,10 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
 
     @Override
     public Optional<Hub> findById(@NotNull Long id) {
+        PGobject jsonbObj = new PGobject();
+        jsonbObj.setType("json");
+       // jsonbObj.setValue("{\"key\" : \"value\"}");
+
         Hub newHub = jdbcTemplate.queryForObject(SELECT_HUB, new Object[]{id}, (rs, rowNum) -> {
             Hub hub = new Hub();
             hub.setId(rs.getLong("id"));
@@ -86,9 +93,16 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
         return Optional.of(newHub);
     }
 
+    //UPDATE public.hubs\n" +
+    //            "\tSET name=?, location=?, description=?, v_ver=?, created_at=?, updated_at=?, device_list_available=?, id=?\n" +
+    //            "\tWHERE id = ?
 
     @Override
-    public void update() {
+    public void update(@NotNull Hub hub, @NotNull String json) {
+        jdbcTemplate.update(UPDATE_HUB, new Object[]{
+          hub.getName(), hub.getLocation(), hub.getDescription(), hub.getVVer(),
+                hub.getCreatedAt(), hub.getUpdatedAt(),
+        });
 
     }
 }
