@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/interface_db
     username: postgres
-    password: 1
+    password: example
     platform: postgres
     driver-class-name: org.postgresql.Driver
   cache:
@@ -15,8 +15,5 @@ spring:
       database: collector
 server:
   port: 5678
-
-
-
 
 

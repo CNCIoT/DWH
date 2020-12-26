@@ -26,12 +26,13 @@ public class HubService {
     }
 
     public Hub save(@NotNull Hub hub) {
-            try {
-              return  hubJdbcRepository.save(hub, null);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            return null;
+        log.info(">>save... hub={}", hub);
+        try {
+            return hubJdbcRepository.save(hub);
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+        return null;
     }
 
     private void updateDeviceListAvailable(@NotNull final int id, @NotNull final String deviceListAvailable) {
@@ -52,9 +53,11 @@ public class HubService {
         hubRepository.delete(hub);
     }
 
-    public Hub mockHub() {
+    public Hub mockHub(String deviceListAvailable) {
         Hub hub = new Hub();
         hub.setId(-1L);
+        hub.setName("new Hub. Update it");
+        hub.setDeviceListAvailable(deviceListAvailable);
         hub.setCreatedAt(new Date());
         hub.setCreatedAt(new Date());
         return hub;

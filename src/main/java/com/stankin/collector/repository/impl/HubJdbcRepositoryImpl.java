@@ -42,21 +42,23 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
     }
 
     @Override
-    public Hub save(Hub hub, String json) throws SQLException {
+    public Hub save(Hub hub) throws SQLException {
+        log.trace(">> save... hub={}", hub);
         GeneratedKeyHolder holder = new GeneratedKeyHolder();
-
         PGobject jsonbObj = new PGobject();
         jsonbObj.setType("json");
-        jsonbObj.setValue("{\"key\" : \"value\"}");
-
+        jsonbObj.setValue(hub.getDeviceListAvailable());
+        java.util.Date date = new java.util.Date();
         jdbcTemplate.update(conn -> {
             PreparedStatement ps = conn.prepareStatement(INSERT_HUB, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, hub.getName());
             ps.setString(2, hub.getLocation());
             ps.setString(3, hub.getDescription());
             ps.setString(4, hub.getVVer());
-            ps.setDate(5, new Date(hub.getCreatedAt().getTime()));
-            ps.setDate(6, new Date(hub.getUpdatedAt().getTime()));
+            ps.setDate(5, hub.getCreatedAt() != null ?
+                    new Date(hub.getCreatedAt().getTime()) : new Date(date.getTime()));
+            ps.setDate(6, hub.getUpdatedAt() != null ?
+                    new Date(hub.getUpdatedAt().getTime()) : new Date(date.getTime()));
             ps.setObject(7, jsonbObj);
             return ps;
         }, holder);
@@ -76,7 +78,7 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
     public Optional<Hub> findById(@NotNull Long id) {
         PGobject jsonbObj = new PGobject();
         jsonbObj.setType("json");
-       // jsonbObj.setValue("{\"key\" : \"value\"}");
+        // jsonbObj.setValue("{\"key\" : \"value\"}");
 
         Hub newHub = jdbcTemplate.queryForObject(SELECT_HUB, new Object[]{id}, (rs, rowNum) -> {
             Hub hub = new Hub();
@@ -100,7 +102,7 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
     @Override
     public void update(@NotNull Hub hub, @NotNull String json) {
         jdbcTemplate.update(UPDATE_HUB, new Object[]{
-          hub.getName(), hub.getLocation(), hub.getDescription(), hub.getVVer(),
+                hub.getName(), hub.getLocation(), hub.getDescription(), hub.getVVer(),
                 hub.getCreatedAt(), hub.getUpdatedAt(),
         });
 

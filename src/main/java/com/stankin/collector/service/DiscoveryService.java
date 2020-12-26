@@ -1,5 +1,6 @@
 package com.stankin.collector.service;
 
+import com.google.gson.Gson;
 import com.stankin.collector.converter.DeviceHubDTOToDeviceConverter;
 import com.stankin.collector.domain.table.Device;
 import com.stankin.collector.domain.table.Hub;
@@ -38,7 +39,7 @@ public class DiscoveryService {
     public ResponseRegHub registrationHub(DiscoveryHubDTO discoveryHubDTO) {
         log.trace("Entering method registrationHub... entity={}", discoveryHubDTO);
         ResponseRegHub responseRegHub = new ResponseRegHub();
-        Hub newHub = hubService.save(hubService.mockHub());
+        Hub newHub = hubService.save(hubService.mockHub(new Gson().toJson(discoveryHubDTO.getDeviceList())));
         responseRegHub.setHubId(newHub.getId());
         List<DeviceHubDTO> deviceList = discoveryHubDTO.getDeviceList();
         Map<Long, String> deviceMap = new HashMap<>();
@@ -50,7 +51,6 @@ public class DiscoveryService {
             Hub2Device newHub2Device = hub2DeviceService.save(hub2Device);
             log.trace("create newHub2Device... entity={}", newHub2Device);
         }
-
         responseRegHub.setDeviceIds(deviceMap);
         return responseRegHub;
     }
