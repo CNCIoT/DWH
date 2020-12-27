@@ -5,6 +5,7 @@ import com.stankin.collector.converter.DeviceHubDTOToDeviceConverter;
 import com.stankin.collector.domain.table.Device;
 import com.stankin.collector.domain.table.Hub;
 import com.stankin.collector.domain.table.Hub2Device;
+import com.stankin.collector.domain.table.InputTypes;
 import com.stankin.collector.dto.discovery.DeviceHubDTO;
 import com.stankin.collector.dto.discovery.DiscoveryHubDTO;
 import com.stankin.collector.dto.discovery.ResponseRegHub;
@@ -23,19 +24,22 @@ public class DiscoveryService {
     private final HubService hubService;
     private final DeviceHubDTOToDeviceConverter deviceHubDTOToDeviceConverter;
     private final Hub2DeviceService hub2DeviceService;
-
+    private final InputTypeService inputTypeService;
 
     public DiscoveryService(DeviceService deviceService,
                             HubService hubService,
                             DeviceHubDTOToDeviceConverter deviceHubDTOToDeviceConverter,
-                            Hub2DeviceService hub2DeviceService) {
+                            Hub2DeviceService hub2DeviceService,
+                            InputTypeService inputTypeService) {
         this.deviceService = deviceService;
         this.hubService = hubService;
         this.deviceHubDTOToDeviceConverter = deviceHubDTOToDeviceConverter;
         this.hub2DeviceService = hub2DeviceService;
+        this.inputTypeService = inputTypeService;
     }
 
     @Transactional
+    //TODO в конфиг нужно добавить новые id-девайсов
     public ResponseRegHub registrationHub(DiscoveryHubDTO discoveryHubDTO) {
         log.trace("Entering method registrationHub... entity={}", discoveryHubDTO);
         ResponseRegHub responseRegHub = new ResponseRegHub();
@@ -44,15 +48,31 @@ public class DiscoveryService {
         List<DeviceHubDTO> deviceList = discoveryHubDTO.getDeviceList();
         Map<Long, String> deviceMap = new HashMap<>();
         for (DeviceHubDTO deviceHubDTO : deviceList) {
+            checkInputTypes(deviceHubDTO.getInputTypes());
             Device device = deviceService.save(deviceHubDTOToDeviceConverter.convert(deviceHubDTO));
+            deviceHubDTO.setDeviceId(device.getId());
             deviceMap.put(device.getId(), device.getName());
             log.trace("create new device... device={}", device);
             Hub2Device hub2Device = createEntityHub2Device(newHub, device);
             Hub2Device newHub2Device = hub2DeviceService.save(hub2Device);
             log.trace("create newHub2Device... entity={}", newHub2Device);
         }
+        hubService.updateDeviceListAvailable(newHub.getId(), new Gson().toJson(deviceList));
         responseRegHub.setDeviceIds(deviceMap);
         return responseRegHub;
+    }
+
+    private void checkInputTypes(String[] inputTypes) {
+        log.trace(">>checkInputTypes... inputTypes={}", inputTypes);
+        for (String inputType : inputTypes) {
+            InputTypes foundInputTypes = inputTypeService.findByKind(inputType);
+            if (foundInputTypes == null) {
+                String msg = String.format("Параметр %s не найден в системе", inputType);
+                log.error(msg);
+                throw new IllegalArgumentException(msg);
+            }
+        }
+        log.trace("<<checkInputTypes...");
     }
 
     private Hub2Device createEntityHub2Device(@NotNull Hub hub, @NotNull Device device) {

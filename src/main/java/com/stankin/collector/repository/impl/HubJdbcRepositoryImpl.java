@@ -2,7 +2,7 @@ package com.stankin.collector.repository.impl;
 
 import com.stankin.collector.domain.table.Hub;
 import com.stankin.collector.repository.HubJdbcRepository;
-import com.stankin.collector.repository.HubRepository;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.postgresql.util.PGobject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,6 @@ import java.util.Optional;
 public class HubJdbcRepositoryImpl implements HubJdbcRepository {
 
     private final JdbcTemplate jdbcTemplate;
-    private final HubRepository hubRepository;
 
     private final String INSERT_HUB = "INSERT INTO " +
             "public.hubs(name, location, description, v_ver, created_at, updated_at, device_list_available) " +
@@ -35,19 +34,15 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
             "\tWHERE id = ?";
 
     @Autowired
-    public HubJdbcRepositoryImpl(JdbcTemplate jdbcTemplate,
-                                 HubRepository hubRepository) {
+    public HubJdbcRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.hubRepository = hubRepository;
     }
 
     @Override
     public Hub save(Hub hub) throws SQLException {
         log.trace(">> save... hub={}", hub);
         GeneratedKeyHolder holder = new GeneratedKeyHolder();
-        PGobject jsonbObj = new PGobject();
-        jsonbObj.setType("json");
-        jsonbObj.setValue(hub.getDeviceListAvailable());
+        PGobject jsonbObj = mockPGObject(hub.getDeviceListAvailable());
         java.util.Date date = new java.util.Date();
         jdbcTemplate.update(conn -> {
             PreparedStatement ps = conn.prepareStatement(INSERT_HUB, Statement.RETURN_GENERATED_KEYS);
@@ -76,10 +71,9 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
 
     @Override
     public Optional<Hub> findById(@NotNull Long id) {
+        log.trace(">> findById... id={}", id);
         PGobject jsonbObj = new PGobject();
         jsonbObj.setType("json");
-        // jsonbObj.setValue("{\"key\" : \"value\"}");
-
         Hub newHub = jdbcTemplate.queryForObject(SELECT_HUB, new Object[]{id}, (rs, rowNum) -> {
             Hub hub = new Hub();
             hub.setId(rs.getLong("id"));
@@ -92,19 +86,33 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
             hub.setDeviceListAvailable(rs.getString("device_list_available"));
             return hub;
         });
-        return Optional.of(newHub);
+        log.trace("<<update... newHub={}", newHub);
+        if (newHub != null) return Optional.of(newHub);
+        return Optional.empty();
     }
 
-    //UPDATE public.hubs\n" +
-    //            "\tSET name=?, location=?, description=?, v_ver=?, created_at=?, updated_at=?, device_list_available=?, id=?\n" +
-    //            "\tWHERE id = ?
+    @SneakyThrows
+    @Override
+    public void updateDeviceListAvailable(Long id, String deviceListAvailable) {
+        log.trace(">>updateDeviceListAvailable... id={}, deviceListAvailable={}", id, deviceListAvailable);
+        int updated = jdbcTemplate.update("UPDATE hubs SET device_list_available = ? WHERE id = ?",
+                mockPGObject(deviceListAvailable), id);
+        log.trace("<<updateDeviceListAvailable... updated={}", updated);
+    }
+
+    @SneakyThrows
+    private PGobject mockPGObject(String json) {
+        PGobject pGobject = new PGobject();
+        pGobject.setType("json");
+        pGobject.setValue(json);
+        return pGobject;
+    }
+
 
     @Override
     public void update(@NotNull Hub hub, @NotNull String json) {
-        jdbcTemplate.update(UPDATE_HUB, new Object[]{
-                hub.getName(), hub.getLocation(), hub.getDescription(), hub.getVVer(),
-                hub.getCreatedAt(), hub.getUpdatedAt(),
-        });
+        log.trace(">>update... hub={}, json={}", hub, json);
 
+        log.trace("<<update...");
     }
 }

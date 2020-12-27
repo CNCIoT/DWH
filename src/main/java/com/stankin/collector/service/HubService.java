@@ -35,8 +35,9 @@ public class HubService {
         return null;
     }
 
-    private void updateDeviceListAvailable(@NotNull final int id, @NotNull final String deviceListAvailable) {
-
+    public void updateDeviceListAvailable(@NotNull final Long id, @NotNull final String deviceListAvailable) {
+        log.trace(">>updateDeviceListAvailable... id={}, deviceListAvailable={}", id, deviceListAvailable);
+        hubJdbcRepository.updateDeviceListAvailable(id, deviceListAvailable);
     }
 
     public List<Hub> findAll() {

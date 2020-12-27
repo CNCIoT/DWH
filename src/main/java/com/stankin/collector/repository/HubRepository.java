@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface HubRepository extends CrudRepository<Hub, Long> {
     List<Hub> findAll();
-
 }

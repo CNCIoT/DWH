@@ -36,6 +36,4 @@ public class DiscoveryController {
     public ResponseEntity<ResponseRegHub> registrationHub(@RequestBody DiscoveryHubDTO discoveryHubDTO) {
         return ResponseEntity.ok(discoveryService.registrationHub(discoveryHubDTO));
     }
-
-
 }
