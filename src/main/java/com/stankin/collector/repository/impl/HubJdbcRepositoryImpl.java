@@ -21,18 +21,14 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private final String INSERT_HUB = "INSERT INTO " +
+    private static final String INSERT = "INSERT INTO " +
             "public.hubs(name, location, description, v_ver, created_at, updated_at, device_list_available) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-    private final String SELECT_HUB = "SELECT name, location, description, v_ver, created_at, " +
+    private static final String SELECT = "SELECT name, location, description, v_ver, created_at, " +
             "updated_at, device_list_available::text, id\n" +
             "\tFROM public.hubs WHERE id = ?";
 
-    private final String UPDATE_HUB = "UPDATE public.hubs\n" +
-            "\tSET name=?, location=?, description=?, v_ver=?, created_at=?, updated_at=?, " +
-            "device_list_available=?, id=?\n" +
-            "\tWHERE id = ?";
 
     @Autowired
     public HubJdbcRepositoryImpl(JdbcTemplate jdbcTemplate) {
@@ -46,7 +42,7 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
         PGobject jsonbObj = mockPGObject(hub.getDeviceListAvailable());
         java.util.Date date = new java.util.Date();
         jdbcTemplate.update(conn -> {
-            PreparedStatement ps = conn.prepareStatement(INSERT_HUB, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, hub.getName());
             ps.setString(2, hub.getLocation());
             ps.setString(3, hub.getDescription());
@@ -75,7 +71,7 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
         log.trace(">> findById... id={}", id);
         PGobject jsonbObj = new PGobject();
         jsonbObj.setType("json");
-        Hub newHub = jdbcTemplate.queryForObject(SELECT_HUB, new Object[]{id}, (rs, rowNum) -> {
+        Hub newHub = jdbcTemplate.queryForObject(SELECT, new Object[]{id}, (rs, rowNum) -> {
             Hub hub = new Hub();
             hub.setId(rs.getLong("id"));
             hub.setCreatedAt(rs.getTimestamp("created_at"));

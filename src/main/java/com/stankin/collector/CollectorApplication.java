@@ -1,7 +1,5 @@
 package com.stankin.collector;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.servers.Server;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,8 +21,6 @@ import javax.servlet.MultipartConfigElement;
 
 @SpringBootApplication
 @EnableSwagger2
-@OpenAPIDefinition(servers = { @Server(url = "https://dwh.kovalev.team"),
-		@Server(url = "http://localhost:5678") })
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.stankin.collector.repository")
 @EntityScan("com.stankin.collector.domain")

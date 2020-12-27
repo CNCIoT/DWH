@@ -54,6 +54,7 @@ public class HubService {
         hubRepository.delete(hub);
     }
 
+
     public Hub mockHub(String deviceListAvailable) {
         Hub hub = new Hub();
         hub.setId(-1L);

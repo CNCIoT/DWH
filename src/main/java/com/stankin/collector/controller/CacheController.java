@@ -1,6 +1,6 @@
 package com.stankin.collector.controller;
 
-import com.stankin.collector.service.СacheService;
+import com.stankin.collector.service.CacheService;
 import com.stankin.collector.utils.RestUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/cache")
-public class СacheController {
+public class CacheController {
 
-    private final СacheService cacheService;
+    private final CacheService cacheService;
 
     @Autowired
-    public СacheController(СacheService cacheService) {
+    public CacheController(CacheService cacheService) {
         this.cacheService = cacheService;
     }
 

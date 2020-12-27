@@ -14,9 +14,8 @@ public class AggregateConfiguration extends AbstractJdbcConfiguration {
     final AtomicInteger id = new AtomicInteger(0);
 
     @Bean
-    public ApplicationListener<?> idSetting() {
-        return (ApplicationListener<BeforeSaveEvent>) event -> {
-
+    public ApplicationListener<BeforeSaveEvent> idSetting() {
+        return event -> {
             if (event.getEntity() instanceof Data) {
                 setIds((Data) event.getEntity());
             }
@@ -24,7 +23,6 @@ public class AggregateConfiguration extends AbstractJdbcConfiguration {
     }
 
     private void setIds(Data data) {
-
         if (data.getId() == 0) {
             data.setId((long) id.incrementAndGet());
         }

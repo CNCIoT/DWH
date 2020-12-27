@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class СacheService {
+public class CacheService {
     @CacheEvict(value = "inputTypeFindByKind", allEntries = true)
     public void clear() {
         log.info("inputTypeFindByTitle cache evict");
