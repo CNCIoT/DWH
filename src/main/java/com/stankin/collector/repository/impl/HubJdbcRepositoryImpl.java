@@ -30,7 +30,8 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
             "\tFROM public.hubs WHERE id = ?";
 
     private final String UPDATE_HUB = "UPDATE public.hubs\n" +
-            "\tSET name=?, location=?, description=?, v_ver=?, created_at=?, updated_at=?, device_list_available=?, id=?\n" +
+            "\tSET name=?, location=?, description=?, v_ver=?, created_at=?, updated_at=?, " +
+            "device_list_available=?, id=?\n" +
             "\tWHERE id = ?";
 
     @Autowired
@@ -106,13 +107,5 @@ public class HubJdbcRepositoryImpl implements HubJdbcRepository {
         pGobject.setType("json");
         pGobject.setValue(json);
         return pGobject;
-    }
-
-
-    @Override
-    public void update(@NotNull Hub hub, @NotNull String json) {
-        log.trace(">>update... hub={}, json={}", hub, json);
-
-        log.trace("<<update...");
     }
 }

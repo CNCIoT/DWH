@@ -19,14 +19,13 @@ public class InputTypeService {
         this.inputTypeRepository = inputTypeRepository;
     }
 
-
     public List<InputTypes> findAll() {
         return inputTypeRepository.findAll();
     }
 
     @Cacheable("inputTypeFindByKind")
-    public InputTypes findByKind(String kind){
+    public InputTypes findByKind(String kind) {
         return inputTypeRepository.findByKind(kind);
-   }
+    }
 }
 
