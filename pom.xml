@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.stankin</groupId>
-	<artifactId>collector</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>collector</name>
-	<description>collector for cnciot</description>
+	<artifactId>machine-core</artifactId>
+	<version>1.0</version>
+	<name>machine-core</name>
+	<description>построитель отчетов</description>
 	<properties>
 		<java.version>1.8</java.version>
 		<project.build.directory>/docker</project.build.directory>

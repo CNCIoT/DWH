@@ -1,4 +1,4 @@
-package com.stankin.collector.advisor;
+package com.stankin.machine.core.advisor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

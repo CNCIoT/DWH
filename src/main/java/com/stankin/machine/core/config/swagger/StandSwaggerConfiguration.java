@@ -1,4 +1,4 @@
-package com.stankin.collector.config.swagger;
+package com.stankin.machine.core.config.swagger;
 
 import org.springframework.context.annotation.Profile;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;

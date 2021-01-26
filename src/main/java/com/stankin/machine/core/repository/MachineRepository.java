@@ -1,4 +1,7 @@
-package com.stankin.machine.core.repository.impl;
+package com.stankin.machine.core.repository;
 
-public interface MachineRepository {
+import com.stankin.machine.core.domain.Machine;
+import org.springframework.data.repository.CrudRepository;
+
+public interface MachineRepository extends CrudRepository<Machine, Long> {
 }

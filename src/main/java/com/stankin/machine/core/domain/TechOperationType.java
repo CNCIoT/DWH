@@ -1,2 +1,4 @@
-package com.stankin.machine.core.domain;public class TechOperationType {
+package com.stankin.machine.core.domain;
+
+public class TechOperationType {
 }

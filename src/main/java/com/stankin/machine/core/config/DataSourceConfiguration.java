@@ -1,4 +1,4 @@
-package com.stankin.collector.config;
+package com.stankin.machine.core.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -21,6 +21,8 @@ public class DataSourceConfiguration {
     @Value("${spring.datasource.password}")
     private String password;
 
+
+
     @Bean("dataSource")
     public DataSource dataSource() {
         return createDataSource(username, url, password);
@@ -30,6 +32,7 @@ public class DataSourceConfiguration {
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setUsername(username);
         hikariConfig.setJdbcUrl(url);
+        hikariConfig.setSchema("mdc");
         hikariConfig.setDriverClassName(driverClassName);
         hikariConfig.setPassword(password);
         return new HikariDataSource(hikariConfig);

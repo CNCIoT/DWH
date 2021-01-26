@@ -1,2 +1,10 @@
-package com.stankin.machine.core.service;public class ExecutorProgramService {
+package com.stankin.machine.core.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class ExecutorProgramService {
+
+
+
 }

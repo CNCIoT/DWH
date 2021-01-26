@@ -1,4 +1,4 @@
-package com.stankin.collector.utils;
+package com.stankin.machine.core.utils;
 
 public class RestUtil {
     public static final String HTTP_OK = "200";

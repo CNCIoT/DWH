@@ -1,2 +1,4 @@
-package com.stankin.machine.core.domain;public class Image {
+package com.stankin.machine.core.domain;
+
+public class Image {
 }

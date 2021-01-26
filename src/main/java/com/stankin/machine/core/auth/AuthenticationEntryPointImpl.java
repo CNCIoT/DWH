@@ -1,4 +1,4 @@
-package com.stankin.collector.auth;
+package com.stankin.machine.core.auth;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;

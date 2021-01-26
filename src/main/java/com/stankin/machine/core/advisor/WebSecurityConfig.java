@@ -1,4 +1,4 @@
-package com.stankin.collector.advisor;
+package com.stankin.machine.core.advisor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

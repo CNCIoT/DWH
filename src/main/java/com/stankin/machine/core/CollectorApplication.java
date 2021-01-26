@@ -1,4 +1,4 @@
-package com.stankin.collector;
+package com.stankin.machine.core;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -8,7 +8,6 @@ import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.util.unit.DataSize;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -22,10 +21,9 @@ import javax.servlet.MultipartConfigElement;
 @SpringBootApplication
 @EnableSwagger2
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.stankin.collector.repository")
-@EntityScan("com.stankin.collector.domain")
+@EnableJpaRepositories(basePackages = "com.stankin.machine.core.repository")
+@EntityScan("com.stankin.machine.core.domain")
 @EnableCaching
-@EnableMongoRepositories(basePackages = "com.stankin.collector.mongorepository")
 @Slf4j
 public class CollectorApplication {
 
