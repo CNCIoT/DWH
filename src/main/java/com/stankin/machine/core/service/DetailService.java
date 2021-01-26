@@ -29,4 +29,9 @@ public class DetailService {
         log.trace("create new detail");
         return detailRepository.save(detail);
     }
+
+    public Optional<Detail> findById(Long id) {
+        log.trace(">>findById... id={}", id);
+        return detailRepository.findById(id);
+    }
 }

@@ -1,11 +1,13 @@
 package com.stankin.machine.core.controller;
 
+import com.stankin.machine.core.domain.ExecutorProgram;
 import com.stankin.machine.core.service.ExecutorProgramService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/executor/program")
@@ -18,11 +20,21 @@ public class ExecutorProgramController {
     }
 
     @PostMapping
-    @Operation(summary = "сохранение сущности", description = "", responses = {
+    @Operation(summary = "сохранение сущности")
+    public ResponseEntity<ExecutorProgram> save(@NotNull @RequestBody ExecutorProgram executorProgram){
+        return ResponseEntity.ok(executorProgramService.save(executorProgram));
+    }
 
-    })
-    public ResponseEntity<Void> save(){
-        return ResponseEntity.ok().build();
+    @GetMapping("/{id}")
+    public ResponseEntity<ExecutorProgram> findById(@PathVariable("id") Long id){
+       Optional<ExecutorProgram> optionalExecutorProgram = executorProgramService.findById(id);
+        return optionalExecutorProgram.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.ok().build());
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> delete(@NotNull @RequestBody ExecutorProgram executorProgram){
+        executorProgramService.delete(executorProgram);
+        return ResponseEntity.noContent().build();
     }
 
 }
