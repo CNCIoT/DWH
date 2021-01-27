@@ -21,12 +21,22 @@ public class MachineService {
     public Machine save(@NotNull Machine machine) {
         log.trace(">>save... machine={}", machine);
         Optional<Machine> optionalMachine = machineRepository.findById(machine.getId());
-        if(optionalMachine.isPresent()){
+        if (optionalMachine.isPresent()) {
             log.trace("update existing machine");
             machineRepository.save(machine);
         }
         log.trace("create new machine");
         machine.setId(null);
         return machineRepository.save(machine);
+    }
+
+    public Optional<Machine> findById(@NotNull Long id) {
+        log.trace(">>findById... id={}", id);
+        return machineRepository.findById(id);
+    }
+
+    public void delete(@NotNull Machine machine) {
+        log.trace(">>delete... machine={}", machine);
+        machineRepository.delete(machine);
     }
 }
