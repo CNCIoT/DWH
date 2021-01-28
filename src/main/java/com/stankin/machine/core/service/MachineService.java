@@ -39,4 +39,9 @@ public class MachineService {
         log.trace(">>delete... machine={}", machine);
         machineRepository.delete(machine);
     }
+
+    public int findCountMachineLocationId(Long id) {
+        log.trace(">>findCountMachineLocationId... id={}", id);
+        return machineRepository.findCountMachineLocationId(id);
+    }
 }

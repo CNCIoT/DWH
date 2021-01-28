@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,5 +39,10 @@ public class LocationService {
     public void delete(@NotNull Location location) {
         log.trace(">>delete... location={}", location);
         locationRepository.delete(location);
+    }
+
+    public List<Location> findAll() {
+        log.trace(">>findAll...");
+        return locationRepository.findAll();
     }
 }

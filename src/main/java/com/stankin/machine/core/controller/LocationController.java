@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -36,5 +37,9 @@ public class LocationController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping
+    public ResponseEntity<List<Location>> findAll(){
+        return ResponseEntity.ok(locationService.findAll());
+    }
 
 }

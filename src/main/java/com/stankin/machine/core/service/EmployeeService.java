@@ -41,4 +41,9 @@ public class EmployeeService {
         employeeRepository.delete(employee);
     }
 
+    public int findCountEmpByLocationId(@NotNull Long locationId){
+        log.trace("findCountEmpByLocationId... locationId={}", locationId);
+        return employeeRepository.findCountEmpByLocationId(locationId);
+    }
+
 }

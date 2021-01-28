@@ -17,4 +17,5 @@ public class Employee {
     private Date createdAt;
     private Date updatedAt;
     private Long positionId;
+    private Long locationId;
 }
