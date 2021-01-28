@@ -5,6 +5,6 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.servers.Server;
 
 @Profile("prod")
-@OpenAPIDefinition(servers = { @Server(url = "https://dwh.kovalev.team"),
-		@Server(url = "http://localhost:5678") })
+@OpenAPIDefinition(servers = { @Server(url = "https://mdc-api.kovalev.team"),
+		@Server(url = "http://localhost:5679") })
 public class StandSwaggerConfiguration { }

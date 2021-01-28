@@ -21,7 +21,7 @@ public class DetailService {
     public Detail save(@NotNull Detail detail) {
         log.trace(">>save... detail={}", detail);
         Optional<Detail> detailOptional = detailRepository.findById(detail.getId());
-        if(detailOptional.isPresent()){
+        if (detailOptional.isPresent()) {
             log.trace("update existing detail");
             detailRepository.save(detail);
         }
@@ -33,5 +33,10 @@ public class DetailService {
     public Optional<Detail> findById(Long id) {
         log.trace(">>findById... id={}", id);
         return detailRepository.findById(id);
+    }
+
+    public void delete(Detail detail) {
+        log.trace(">>delete... detail={}", detail);
+        detailRepository.delete(detail);
     }
 }

@@ -1,6 +1,5 @@
 package com.stankin.machine.core.service;
 
-import com.stankin.machine.core.domain.TechOperation;
 import com.stankin.machine.core.dto.DescriptionTechProcessDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,12 +9,11 @@ import org.springframework.stereotype.Service;
 public class DescriptionTechProcessService {
 
     private final TechProcessService techProcessService;
-    private final TechOperation techOperation;
+    private final TechOperationService techOperationService;
 
-    public DescriptionTechProcessService(TechProcessService techProcessService,
-                                         TechOperation techOperation) {
+    public DescriptionTechProcessService(TechProcessService techProcessService, TechOperationService techOperationService) {
         this.techProcessService = techProcessService;
-        this.techOperation = techOperation;
+        this.techOperationService = techOperationService;
     }
 
     public DescriptionTechProcessDTO save(DescriptionTechProcessDTO descriptionTechProcessDTO) {

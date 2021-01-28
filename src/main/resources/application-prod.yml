@@ -14,6 +14,6 @@ spring:
       port: 27017
       database: collector
 server:
-  port: 5678
+  port: 5679
 
 
