@@ -11,7 +11,9 @@ import java.util.Date;
 public class TechProcess {
     @Id
     private Long id;
+    private String name;
     private String barcode;
+    private String detailName;
     private Date createdAt;
     private Date updatedAt;
 }

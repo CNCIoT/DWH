@@ -12,6 +12,7 @@ import java.util.Date;
 public class Location {
     @Id
     private Long id;
+    private String name;
     private Date createdAt;
     private Date updatedAt;
 }

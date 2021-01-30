@@ -18,5 +18,4 @@ public class ExecutorProgram {
     private Date updatedAt;
     private String fileName;
     private String status;
-    private String barcodeTechProcess;
 }

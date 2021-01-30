@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -26,6 +27,8 @@ public class TechOperationService {
             return techOperationRepository.save(techOperation);
         }
         techOperation.setId(null);
+        techOperation.setCreatedAt(new Date());
+        techOperation.setUpdatedAt(new Date());
         TechOperation newTechOperation = techOperationRepository.save(techOperation);
         log.trace("<<save...create new tech operation. new tech operation: {}", newTechOperation);
         return newTechOperation;

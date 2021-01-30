@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,6 +29,12 @@ public class ExecutorProgramService {
             return executorProgramRepository.save(executorProgram);
         }
         executorProgram.setId(null);
+        if (executorProgram.getCreatedAt() == null) {
+            executorProgram.setCreatedAt(new Date());
+        }
+        if (executorProgram.getUpdatedAt() == null) {
+            executorProgram.setUpdatedAt(new Date());
+        }
         log.trace("create new executorProgram");
         return executorProgramRepository.save(executorProgram);
     }
@@ -39,4 +48,15 @@ public class ExecutorProgramService {
         log.trace(">>delete... executorProgram={}", executorProgram);
         executorProgramRepository.delete(executorProgram);
     }
+
+    public List<ExecutorProgram> findAllByFilter(Long employeeId,
+                                                 String fileName,
+                                                 Date startDate,
+                                                 Date endDate) {
+        log.trace(">>findAllByFilter... operatorFullName={}, fileName={}, startDate={}, endDate={}",
+                employeeId, fileName, startDate, endDate);
+        return executorProgramRepository.findAllByFilter(employeeId, fileName, startDate, endDate);
+    }
+
+
 }
