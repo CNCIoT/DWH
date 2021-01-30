@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,9 +42,31 @@ public class EmployeeService {
         employeeRepository.delete(employee);
     }
 
-    public int findCountEmpByLocationId(@NotNull Long locationId){
+    public int findCountEmpByLocationId(@NotNull Long locationId) {
         log.trace("findCountEmpByLocationId... locationId={}", locationId);
         return employeeRepository.findCountEmpByLocationId(locationId);
     }
 
+
+    public String formatterFullName(String firstName,
+                                     String lastName,
+                                     String middleName) {
+        log.trace(">>formatterFullName... firstName={}, lastName={}, middleName={}", firstName, lastName, middleName);
+        String result = "";
+        if (firstName != null) {
+            result += firstName;
+        }
+        if (lastName != null) {
+            result += " " + lastName;
+        }
+        if (middleName != null) {
+            result += " " + middleName;
+        }
+        return result.trim();
+    }
+
+    public List<Employee> findAll(){
+        log.trace(">>findAll...");
+        return employeeRepository.findAll();
+    }
 }

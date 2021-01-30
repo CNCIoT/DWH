@@ -20,4 +20,21 @@ public interface ExecutorProgramRepository extends CrudRepository<ExecutorProgra
                                           @Param("file_name") String fileName,
                                           @Param("start_date") Date startDate,
                                           @Param("end_date") Date endDate);
+
+    @Query("SELECT COUNT(*) FROM mdc.executor_programs \n" +
+            "WHERE employee_id = :employee_id\n" +
+            "AND file_name = :file_name")
+    int findAllWithGroupByEmpAndFileName(@Param("employee_id") Long employeeId,
+                                         @Param("file_name") String fileName);
+
+    @Query("SELECT SUM(e.actual_machine_time) \n" +
+            "FROM mdc.executor_programs e\n" +
+            "WHERE (created_at >= COALESCE (:start_date, '1970-01-01 01:00:00.0+00'::timestamp)\n" +
+            "            AND created_at <= COALESCE(:end_date, now()))\n" +
+            "            AND (:file_name IS NULL OR file_name = :file_name)\n" +
+            "            AND (:employee_id IS NULL OR employee_id = :employee_id)")
+    double calculateActualMachineTime(@Param("employee_id") Long employeeId,
+                                  @Param("file_name") String fileName,
+                                  @Param("start_date") Date startDate,
+                                  @Param("end_date") Date endDate);
 }

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -34,5 +35,11 @@ public class EmployeeController {
     public ResponseEntity<Void> delete(@NotNull Employee employee) {
         employeeService.delete(employee);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Employee>> findAll(){
+        List<Employee> employeeList = employeeService.findAll();
+        return ResponseEntity.ok(employeeList);
     }
 }

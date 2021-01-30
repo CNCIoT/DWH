@@ -6,6 +6,7 @@ import lombok.Data;
 public class FinishedPartDTO {
     private final String operatorFullName;
     private final String detailName;
+    private final String rowNumOperation;
     private final String operationTypeName;
     private final Double actualMachineTime;
     private final int countOperation;

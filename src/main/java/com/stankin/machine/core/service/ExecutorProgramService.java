@@ -59,4 +59,16 @@ public class ExecutorProgramService {
     }
 
 
+    public int findAllWithGroupByEmpAndFileName(Long employeeId, String fileName) {
+        log.trace("findAllWithGroupByEmpAndFileName... employeeId={}, fileName={}", employeeId, fileName);
+        return executorProgramRepository.findAllWithGroupByEmpAndFileName(employeeId, fileName);
+    }
+
+    public double calculateActualMachineTime(Long employeeId,
+                                          String fileName,
+                                          Date startDate,
+                                          Date endDate) {
+        log.trace(">>calculateActualMachineTime... employeeId={}, fileName={}, startDate={}, endDate={}", employeeId, fileName, startDate, endDate);
+        return executorProgramRepository.calculateActualMachineTime(employeeId, fileName, startDate, endDate);
+    }
 }
