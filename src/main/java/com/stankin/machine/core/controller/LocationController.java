@@ -1,7 +1,7 @@
 package com.stankin.machine.core.controller;
 
 import com.stankin.machine.core.domain.Location;
-import com.stankin.machine.core.service.LocationService;
+import com.stankin.machine.core.service.domain.LocationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

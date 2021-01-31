@@ -1,4 +1,4 @@
-package com.stankin.machine.core.service;
+package com.stankin.machine.core.service.domain;
 
 import com.stankin.machine.core.domain.TechProcess2TechOperation;
 import com.stankin.machine.core.repository.TechProcess2TechOperationRepository;
@@ -19,7 +19,7 @@ public class TechProcess2TechOperationService {
         this.techProcess2TechOperationRepository = techProcess2TechOperationRepository;
     }
 
-    private List<TechProcess2TechOperation> findAll() {
+    public List<TechProcess2TechOperation> findAll() {
         log.trace(">>findAll...");
         return techProcess2TechOperationRepository.findAll();
     }

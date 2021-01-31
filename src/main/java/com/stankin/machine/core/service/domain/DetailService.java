@@ -1,4 +1,4 @@
-package com.stankin.machine.core.service;
+package com.stankin.machine.core.service.domain;
 
 import com.stankin.machine.core.domain.Detail;
 import com.stankin.machine.core.repository.DetailRepository;

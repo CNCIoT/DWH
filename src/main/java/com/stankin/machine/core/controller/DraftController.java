@@ -1,6 +1,6 @@
 package com.stankin.machine.core.controller;
 
-import com.stankin.machine.core.service.DraftService;
+import com.stankin.machine.core.service.domain.DraftService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

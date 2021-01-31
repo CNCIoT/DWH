@@ -3,9 +3,11 @@ package com.stankin.machine.core.service;
 import com.stankin.machine.core.domain.Employee;
 import com.stankin.machine.core.domain.TechOperation;
 import com.stankin.machine.core.domain.TechOperationType;
+import com.stankin.machine.core.domain.TechProcess;
 import com.stankin.machine.core.dto.EmployeeReportFinishedDetailDTO;
 import com.stankin.machine.core.dto.FinishedPartDTO;
 import com.stankin.machine.core.dto.FinishedPartFilterDTO;
+import com.stankin.machine.core.service.domain.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -66,23 +68,31 @@ public class FinishedPartReportService {
                     .calculateActualMachineTime(employeeReportFinishedDetailDTO.getEmployeeId(),
                             employeeReportFinishedDetailDTO.getFileName(), dto.getStartDate(), dto.getEndDate());
 
-            Optional<TechOperation> techOperationOptional = techOperationService.findByFileName(employeeReportFinishedDetailDTO.getFileName());
-            String rownum = null;
-            String techOperationName = null;
+            Optional<TechOperation> techOperationOptional = techOperationService
+                    .findByFileName(employeeReportFinishedDetailDTO.getFileName());
+            String rowNum = null;
             Long techOperationTypeId = null;
+            Long techOperationId = null;
             if (techOperationOptional.isPresent()) {
                 TechOperation techOperation = techOperationOptional.get();
-                rownum = techOperation.getRownum();
-                techOperationName = techOperation.getName();
+                rowNum = techOperation.getRownum();
                 techOperationTypeId = techOperation.getTechOperationTypeId();
+                techOperationId = techOperation.getId();
             }
             Optional<TechOperationType> techOperationTypeOptional = techOperationTypeService.findById(techOperationTypeId);
             String techOperationTypeName = null;
-            if(techOperationOptional.isPresent()){
+            if(techOperationTypeOptional.isPresent()){
                 TechOperationType techOperationType = techOperationTypeOptional.get();
                 techOperationTypeName = techOperationType.getName();
             }
-            FinishedPartDTO finishedPartDTO = new FinishedPartDTO(empFullName, techOperationName, rownum,
+
+            Optional<TechProcess> techProcessOptional = techProcessService.findByTechOperationId(techOperationId);
+            String detailName = null;
+            if(techProcessOptional.isPresent()){
+                TechProcess techProcess = techProcessOptional.get();
+                detailName = techProcess.getDetailName();
+            }
+            final FinishedPartDTO finishedPartDTO = new FinishedPartDTO(empFullName, detailName, rowNum,
                     techOperationTypeName, actualMachineTime,
                     employeeReportFinishedDetailDTO.getCountOperation());
 

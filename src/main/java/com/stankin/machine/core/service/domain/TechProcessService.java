@@ -1,4 +1,4 @@
-package com.stankin.machine.core.service;
+package com.stankin.machine.core.service.domain;
 
 import com.stankin.machine.core.domain.TechProcess;
 import com.stankin.machine.core.repository.TechProcessRepository;
@@ -38,5 +38,11 @@ public class TechProcessService {
     public void delete(@NotNull TechProcess techProcess) {
         log.trace(">>delete... techProcess={}", techProcess);
         techProcessRepository.delete(techProcess);
+    }
+
+    public Optional<TechProcess> findByTechOperationId(Long id){
+        log.trace(">>findByTechOperationId... id={}", id);
+        TechProcess techProcess = techProcessRepository.findByTechOperationId(id);
+        return Optional.of(techProcess);
     }
 }

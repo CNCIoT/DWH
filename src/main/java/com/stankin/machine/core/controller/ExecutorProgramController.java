@@ -1,7 +1,7 @@
 package com.stankin.machine.core.controller;
 
 import com.stankin.machine.core.domain.ExecutorProgram;
-import com.stankin.machine.core.service.ExecutorProgramService;
+import com.stankin.machine.core.service.domain.ExecutorProgramService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

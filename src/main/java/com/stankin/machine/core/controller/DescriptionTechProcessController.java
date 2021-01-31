@@ -1,7 +1,7 @@
 package com.stankin.machine.core.controller;
 
 import com.stankin.machine.core.dto.DescriptionTechProcessDTO;
-import com.stankin.machine.core.service.DescriptionTechProcessService;
+import com.stankin.machine.core.service.domain.DescriptionTechProcessService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
 package com.stankin.machine.core.controller;
 
 import com.stankin.machine.core.domain.Detail;
-import com.stankin.machine.core.service.DetailService;
+import com.stankin.machine.core.service.domain.DetailService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
