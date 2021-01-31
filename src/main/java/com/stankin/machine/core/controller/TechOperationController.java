@@ -36,4 +36,10 @@ public class TechOperationController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/file/name/{fileName}")
+    public ResponseEntity<TechOperation> findByName(@PathVariable("fileName") String fileName){
+        Optional<TechOperation> techOperationOptional = techOperationService.findByFileName(fileName);
+        return techOperationOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 }

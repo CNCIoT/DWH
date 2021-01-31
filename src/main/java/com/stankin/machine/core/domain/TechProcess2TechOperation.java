@@ -1,6 +1,5 @@
 package com.stankin.machine.core.domain;
 
-
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
@@ -8,16 +7,12 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.util.Date;
 
 @Data
-@Table("tech_operations")
-public class TechOperation {
+@Table("tech_process2tech_operations")
+public class TechProcess2TechOperation {
     @Id
     private Long id;
-    private String name;
-    private Long techOperationTypeId;
-    private Double scheduledMachineTime;
+    private Long techProcessId;
+    private Long techOperationId;
     private Date createdAt;
     private Date updatedAt;
-    private Long machineId;
-    private String rownum;
-    private String fileNameProgram;
 }

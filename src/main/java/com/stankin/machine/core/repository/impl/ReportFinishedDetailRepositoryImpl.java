@@ -15,7 +15,7 @@ public class ReportFinishedDetailRepositoryImpl implements ReportFinishedDetailR
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    private final static String ALL_EMPLOYEES = "SELECT e.employee_id, \n" +
+    private static final String ALL_EMPLOYEES = "SELECT e.employee_id, \n" +
             "               e.file_name,  \n" +
             "               COUNT(*) count_operation\n" +
             "            FROM mdc.executor_programs e\n" +

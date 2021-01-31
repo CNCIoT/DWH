@@ -44,4 +44,10 @@ public class TechOperationService {
         techOperationRepository.delete(techOperation);
     }
 
+    public Optional<TechOperation> findByFileName(String fileName){
+        log.info(">>findByFileName... fileName={}", fileName);
+        TechOperation techOperation = techOperationRepository.findByFileName(fileName);
+        return Optional.of(techOperation);
+    }
+
 }
