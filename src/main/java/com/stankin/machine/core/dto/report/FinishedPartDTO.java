@@ -1,4 +1,4 @@
-package com.stankin.machine.core.dto;
+package com.stankin.machine.core.dto.report;
 
 import lombok.Data;
 

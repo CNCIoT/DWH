@@ -1,6 +1,6 @@
 package com.stankin.machine.core.controller;
 
-import com.stankin.machine.core.dto.FinishedPartDTO;
+import com.stankin.machine.core.dto.report.FinishedPartDTO;
 import com.stankin.machine.core.dto.FinishedPartFilterDTO;
 import com.stankin.machine.core.service.FinishedPartReportService;
 import org.springframework.http.ResponseEntity;

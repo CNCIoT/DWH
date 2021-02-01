@@ -5,6 +5,7 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
@@ -13,4 +14,8 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
     List<Employee> findAll();
 
+    @Query("SELECT * FROM mdc.employees ex\n" +
+            "WHERE (created_at >= COALESCE (:start_date, '1970-01-01 01:00:00.0+00'::timestamp) \n" +
+            "      AND created_at <= COALESCE(:end_date, now()))")
+    List<Employee> findAllByStartAndEndDate(@Param("start_date") Date startDate, @Param("end_date") Date endDate);
 }

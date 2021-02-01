@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,5 +69,10 @@ public class EmployeeService {
     public List<Employee> findAll(){
         log.trace(">>findAll...");
         return employeeRepository.findAll();
+    }
+
+    public List<Employee> findAllByStartAndEndDate(Date startDate, Date endDate) {
+        log.trace(">>findAllByStartAndEndDate... startDate={}, endDate={}", startDate, endDate);
+        return employeeRepository.findAllByStartAndEndDate(startDate, endDate);
     }
 }

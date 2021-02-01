@@ -5,7 +5,7 @@ import com.stankin.machine.core.domain.TechOperation;
 import com.stankin.machine.core.domain.TechOperationType;
 import com.stankin.machine.core.domain.TechProcess;
 import com.stankin.machine.core.dto.EmployeeReportFinishedDetailDTO;
-import com.stankin.machine.core.dto.FinishedPartDTO;
+import com.stankin.machine.core.dto.report.FinishedPartDTO;
 import com.stankin.machine.core.dto.FinishedPartFilterDTO;
 import com.stankin.machine.core.service.domain.*;
 import lombok.extern.slf4j.Slf4j;

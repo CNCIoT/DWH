@@ -70,4 +70,14 @@ public class ExecutorProgramService {
         log.trace(">>calculateActualMachineTime... employeeId={}, fileName={}, startDate={}, endDate={}", employeeId, fileName, startDate, endDate);
         return executorProgramRepository.calculateActualMachineTime(employeeId, fileName, startDate, endDate);
     }
+
+    public List<ExecutorProgram> findAllByStartAndEndDate(Date startDate, Date endDate){
+        log.trace("findAllByStartAndEndDate... startDate={}, endDate={}", startDate, endDate);
+        return executorProgramRepository.findAllByStartAndEndDate(startDate, endDate);
+    }
+
+
+
+
+
 }
