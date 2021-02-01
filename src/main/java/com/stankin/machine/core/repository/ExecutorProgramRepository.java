@@ -43,4 +43,12 @@ public interface ExecutorProgramRepository extends CrudRepository<ExecutorProgra
             "      AND created_at <= COALESCE(:end_date, now()))")
     List<ExecutorProgram> findAllByStartAndEndDate(@Param("start_date") Date startDate,
                                                    @Param("end_date") Date endDate);
+
+    @Query("SELECT * FROM mdc.executor_programs ex\n" +
+            "WHERE  employee_id = :employee_id" +
+            " AND (created_at >= COALESCE (:start_date, '1970-01-01 01:00:00.0+00'::timestamp) \n" +
+            "      AND created_at <= COALESCE(:end_date, now()))")
+    List<ExecutorProgram> findAllByEmpAndStartAndEndDate(@Param("employee_id") Long employeeId,
+                                                         @Param("start_date") Date startDate,
+                                                         @Param("end_date") Date endDate);
 }

@@ -43,7 +43,7 @@ public class PerformancePlanReportService {
             String empFullName = employeeService.formatterFullName(employee.getFirstName(),
                     employee.getLastName(), employee.getMiddleName());
             List<ExecutorProgram> executorProgramList = executorProgramService
-                    .findAllByStartAndEndDate(dateFilterDTO.getStartDate(), dateFilterDTO.getEndDate());
+                    .findAllByEmpAndStartAndEndDate(employee.getId(), dateFilterDTO.getStartDate(), dateFilterDTO.getEndDate());
             double sumScheduledMachineTime = 0.0001d;
 
             for (ExecutorProgram executorProgram : executorProgramList) {

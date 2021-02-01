@@ -77,7 +77,8 @@ public class ExecutorProgramService {
     }
 
 
-
-
-
+    public List<ExecutorProgram> findAllByEmpAndStartAndEndDate(Long employeeId, Date startDate, Date endDate) {
+        log.trace("findAllByEmpAndStartAndEndDate... employeeId={}, startDate={}, endDate={}", employeeId, startDate, endDate);
+        return executorProgramRepository.findAllByEmpAndStartAndEndDate(employeeId, startDate, endDate);
+    }
 }
