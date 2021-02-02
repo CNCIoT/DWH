@@ -5,6 +5,7 @@ import com.stankin.machine.core.domain.ExecutorProgram;
 import com.stankin.machine.core.domain.TechOperation;
 import com.stankin.machine.core.dto.DateFilterDTO;
 import com.stankin.machine.core.dto.report.ReportExecutePlanEmpDTO;
+import com.stankin.machine.core.dto.report.ReportTechOperationTypeDTO;
 import com.stankin.machine.core.service.domain.EmployeeService;
 import com.stankin.machine.core.service.domain.ExecutorProgramService;
 import com.stankin.machine.core.service.domain.TechOperationService;
@@ -60,5 +61,12 @@ public class PerformancePlanReportService {
             reportExecutePlanEmpDTOList.add(reportExecutePlanEmpDTO);
         }
         return reportExecutePlanEmpDTOList;
+    }
+
+    public List<ReportTechOperationTypeDTO> reportPlanByTechOperationType(DateFilterDTO dateFilterDTO) {
+        log.trace(">>reportPlanByTechOperationType... dateFilterDTO={}", dateFilterDTO);
+
+       // executorProgramService.fi
+        return null;
     }
 }
