@@ -2,14 +2,15 @@ package com.stankin.machine.core.repository.impl;
 
 import com.stankin.machine.core.dto.report.ReportTechOperationTypeDTO;
 import com.stankin.machine.core.repository.ReportPlanByTechOperationTypeRepository;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 
+@Repository
 public class ReportPlanByTechOperationTypeRepositoryImpl implements ReportPlanByTechOperationTypeRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;

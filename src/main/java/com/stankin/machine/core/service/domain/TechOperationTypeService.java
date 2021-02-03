@@ -42,4 +42,10 @@ public class TechOperationTypeService {
         log.trace(">>delete... techOperationType={}", techOperationType);
         techOperationTypeRepository.delete(techOperationType);
     }
+
+    public Optional<TechOperationType> findByName(String name){
+        log.trace(">>findByName... name={}", name);
+        TechOperationType techOperationType =  techOperationTypeRepository.findByName(name);
+        return Optional.of(null);
+    }
 }

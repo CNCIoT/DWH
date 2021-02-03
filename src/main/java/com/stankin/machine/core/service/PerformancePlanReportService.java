@@ -3,18 +3,20 @@ package com.stankin.machine.core.service;
 import com.stankin.machine.core.domain.Employee;
 import com.stankin.machine.core.domain.ExecutorProgram;
 import com.stankin.machine.core.domain.TechOperation;
+import com.stankin.machine.core.domain.TechOperationType;
 import com.stankin.machine.core.dto.DateFilterDTO;
 import com.stankin.machine.core.dto.report.ReportExecutePlanEmpDTO;
 import com.stankin.machine.core.dto.report.ReportTechOperationTypeDTO;
+import com.stankin.machine.core.repository.ReportPlanByTechOperationTypeRepository;
 import com.stankin.machine.core.service.domain.EmployeeService;
 import com.stankin.machine.core.service.domain.ExecutorProgramService;
 import com.stankin.machine.core.service.domain.TechOperationService;
+import com.stankin.machine.core.service.domain.TechOperationTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,13 +27,22 @@ public class PerformancePlanReportService {
     private final ExecutorProgramService executorProgramService;
     private final EmployeeService employeeService;
     private final TechOperationService techOperationService;
+    private final ReportPlanByTechOperationTypeRepository reportPlanByTechOperationTypeRepository;
+    private final PlanService planService;
+    private final TechOperationTypeService techOperationTypeService;
 
     public PerformancePlanReportService(ExecutorProgramService executorProgramService,
                                         EmployeeService employeeService,
-                                        TechOperationService techOperationService) {
+                                        TechOperationService techOperationService,
+                                        ReportPlanByTechOperationTypeRepository reportPlanByTechOperationTypeRepository,
+                                        PlanService planService,
+                                        TechOperationTypeService techOperationTypeService) {
         this.executorProgramService = executorProgramService;
         this.employeeService = employeeService;
         this.techOperationService = techOperationService;
+        this.reportPlanByTechOperationTypeRepository = reportPlanByTechOperationTypeRepository;
+        this.planService = planService;
+        this.techOperationTypeService = techOperationTypeService;
     }
 
     public List<ReportExecutePlanEmpDTO> reportExecutePlanByEmp(@NotNull DateFilterDTO dateFilterDTO) {
@@ -65,8 +76,22 @@ public class PerformancePlanReportService {
 
     public List<ReportTechOperationTypeDTO> reportPlanByTechOperationType(DateFilterDTO dateFilterDTO) {
         log.trace(">>reportPlanByTechOperationType... dateFilterDTO={}", dateFilterDTO);
+        List<ReportTechOperationTypeDTO> reportTechOperationTypeDTOList = reportPlanByTechOperationTypeRepository
+                .reportPlanByTechOperation(dateFilterDTO.getStartDate(), dateFilterDTO.getEndDate());
+        for (ReportTechOperationTypeDTO reportTechOperationTypeDTO : reportTechOperationTypeDTOList) {
+            String techOperationTypeName = reportTechOperationTypeDTO.getTechOperationType();
+            if (techOperationTypeName != null) {
+                // Optional<TechOperationType> techOperationTypeOptional = techOperationTypeService
+                //         .findByName(techOperationTypeName);
+                //  if(techOperationTypeOptional.isPresent()){
+                //      TechOperationType techOperationType = techOperationTypeOptional.get();
+                //   techOperationService.
+                //techOperationService.findByName(tec)
+            }
+        }
 
-       // executorProgramService.fi
-        return null;
+            //techOperationService.findByName(reportTechOperationTypeDTO)
+        // executorProgramService.fi
+        return reportTechOperationTypeDTOList;
     }
 }

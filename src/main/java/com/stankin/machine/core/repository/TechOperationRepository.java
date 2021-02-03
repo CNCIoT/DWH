@@ -9,4 +9,7 @@ public interface TechOperationRepository extends CrudRepository<TechOperation, L
 
     @Query("SELECT * FROM tech_operations WHERE file_name_program = :file_name")
     TechOperation findByFileName(@Param("file_name") String fileName);
+
+    @Query("SELECT * FROM mdc.tech_operations WHERE name = :name")
+    TechOperation findByName(@Param("name") String name);
 }

@@ -50,4 +50,12 @@ public class TechOperationService {
         return Optional.of(techOperation);
     }
 
+    public Optional<TechOperation> findByName(String name){
+        log.trace(">>findByName... name={}", name);
+        TechOperation techOperation = techOperationRepository.findByName(name);
+        return Optional.of(techOperation);
+    }
+
+   // public Optional<TechOperation> findByTech
+
 }
