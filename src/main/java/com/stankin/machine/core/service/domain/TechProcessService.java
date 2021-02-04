@@ -1,5 +1,6 @@
 package com.stankin.machine.core.service.domain;
 
+import com.stankin.machine.core.domain.TechOperation;
 import com.stankin.machine.core.domain.TechProcess;
 import com.stankin.machine.core.repository.TechProcessRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -44,5 +45,10 @@ public class TechProcessService {
         log.trace(">>findByTechOperationId... id={}", id);
         TechProcess techProcess = techProcessRepository.findByTechOperationId(id);
         return Optional.of(techProcess);
+    }
+
+    public TechProcess findTechProcessByTechOperationId(Long techOperationId) {
+        log.trace(">>findTechProcessByTechOperationId... techOperationId}", techOperationId);
+        return techProcessRepository.findTechProcessByTechOperationId(techOperationId);
     }
 }

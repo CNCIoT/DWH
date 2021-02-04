@@ -17,7 +17,7 @@ public class TechOperation {
     private Double scheduledMachineTime;
     private Date createdAt;
     private Date updatedAt;
-    private Long machineId;
     private String rownum;
     private String fileNameProgram;
+    private Long machineModelId;
 }

@@ -2,6 +2,7 @@ package com.stankin.machine.core.controller;
 
 import com.stankin.machine.core.dto.DateFilterDTO;
 import com.stankin.machine.core.dto.report.ReportExecutePlanEmpDTO;
+import com.stankin.machine.core.dto.report.ReportImplementDetailDTO;
 import com.stankin.machine.core.dto.report.ReportTechOperationTypeDTO;
 import com.stankin.machine.core.service.PerformancePlanReportService;
 import org.springframework.http.ResponseEntity;
@@ -34,5 +35,11 @@ public class PerformancePlanReportController {
         List<ReportTechOperationTypeDTO> reportTechOperationTypeDTOList =
                 performancePlanReportService.reportPlanByTechOperationType(dateFilterDTO);
         return ResponseEntity.ok(reportTechOperationTypeDTOList);
+    }
+
+    @PostMapping("/reportImplementDetail")
+    public ResponseEntity<List<ReportImplementDetailDTO>> reportImplementDetail(@RequestBody
+                                                                                           DateFilterDTO dateFilterDTO){
+        return ResponseEntity.ok(performancePlanReportService.reportImplementDetail(dateFilterDTO));
     }
 }

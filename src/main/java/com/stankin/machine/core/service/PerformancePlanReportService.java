@@ -3,15 +3,13 @@ package com.stankin.machine.core.service;
 import com.stankin.machine.core.domain.Employee;
 import com.stankin.machine.core.domain.ExecutorProgram;
 import com.stankin.machine.core.domain.TechOperation;
-import com.stankin.machine.core.domain.TechOperationType;
+import com.stankin.machine.core.domain.TechProcess;
 import com.stankin.machine.core.dto.DateFilterDTO;
 import com.stankin.machine.core.dto.report.ReportExecutePlanEmpDTO;
+import com.stankin.machine.core.dto.report.ReportImplementDetailDTO;
 import com.stankin.machine.core.dto.report.ReportTechOperationTypeDTO;
 import com.stankin.machine.core.repository.ReportPlanByTechOperationTypeRepository;
-import com.stankin.machine.core.service.domain.EmployeeService;
-import com.stankin.machine.core.service.domain.ExecutorProgramService;
-import com.stankin.machine.core.service.domain.TechOperationService;
-import com.stankin.machine.core.service.domain.TechOperationTypeService;
+import com.stankin.machine.core.service.domain.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -29,20 +27,21 @@ public class PerformancePlanReportService {
     private final TechOperationService techOperationService;
     private final ReportPlanByTechOperationTypeRepository reportPlanByTechOperationTypeRepository;
     private final PlanService planService;
-    private final TechOperationTypeService techOperationTypeService;
+    private final TechProcessService techProcessService;
 
     public PerformancePlanReportService(ExecutorProgramService executorProgramService,
                                         EmployeeService employeeService,
                                         TechOperationService techOperationService,
                                         ReportPlanByTechOperationTypeRepository reportPlanByTechOperationTypeRepository,
                                         PlanService planService,
-                                        TechOperationTypeService techOperationTypeService) {
+                                        TechOperationTypeService techOperationTypeService,
+                                        TechProcessService techProcessService) {
         this.executorProgramService = executorProgramService;
         this.employeeService = employeeService;
         this.techOperationService = techOperationService;
         this.reportPlanByTechOperationTypeRepository = reportPlanByTechOperationTypeRepository;
         this.planService = planService;
-        this.techOperationTypeService = techOperationTypeService;
+        this.techProcessService = techProcessService;
     }
 
     public List<ReportExecutePlanEmpDTO> reportExecutePlanByEmp(@NotNull DateFilterDTO dateFilterDTO) {
@@ -90,8 +89,29 @@ public class PerformancePlanReportService {
             }
         }
 
-            //techOperationService.findByName(reportTechOperationTypeDTO)
+        //techOperationService.findByName(reportTechOperationTypeDTO)
         // executorProgramService.fi
         return reportTechOperationTypeDTOList;
+    }
+
+    public List<ReportImplementDetailDTO> reportImplementDetail(DateFilterDTO dateFilterDTO) {
+        log.trace(">>reportImplementDetail... dateFilterDTO={}", dateFilterDTO);
+        List<TechOperation> techOperationList = techOperationService.findLastTechOperation();
+        List<ExecutorProgram> executorProgramList = executorProgramService
+                .findAllByStartAndEndDate(dateFilterDTO.getStartDate(), dateFilterDTO.getEndDate());
+        List<ReportImplementDetailDTO> reportImplementDetailDTOList = new ArrayList<>();
+        for (TechOperation techOperation : techOperationList) {
+            Long count = executorProgramList.stream()
+                    .filter(f -> f.getFileName().equals(techOperation.getFileNameProgram())).count();
+            TechProcess techProcess =
+                    techProcessService.findTechProcessByTechOperationId(techOperation.getId());
+            if (techProcess != null) {
+                ReportImplementDetailDTO reportImplementDetailDTO = new ReportImplementDetailDTO();
+                reportImplementDetailDTO.setName(techProcess.getDetailName());
+                reportImplementDetailDTO.setFactAmount(count);
+                reportImplementDetailDTOList.add(reportImplementDetailDTO);
+            }
+        }
+        return reportImplementDetailDTOList;
     }
 }

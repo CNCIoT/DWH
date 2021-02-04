@@ -12,4 +12,9 @@ public interface TechProcessRepository extends CrudRepository<TechProcess, Long>
             "JOIN mdc.tech_processes tp ON tp.id = p2p.tech_process_id" +
             " WHERE (:id IS NULL OR tech_o.id = :id)")
     TechProcess findByTechOperationId(@Param("id") Long id);
+
+    @Query("SELECT tp.* FROM mdc.tech_process2tech_operations tpt\n" +
+            "JOIN mdc.tech_processes tp ON tp.id = tpt.tech_process_id\n" +
+            "WHERE tpt.tech_operation_id = :tech_operation_id")
+    TechProcess findTechProcessByTechOperationId(@Param("tech_operation_id") Long techOperationId);
 }

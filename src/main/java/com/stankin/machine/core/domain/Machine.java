@@ -18,4 +18,5 @@ public class Machine {
     private Long locationId;
     private Date createdAt;
     private Date updatedAt;
+    private Long machineModelId;
 }

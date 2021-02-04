@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,6 +57,9 @@ public class TechOperationService {
         return Optional.of(techOperation);
     }
 
-   // public Optional<TechOperation> findByTech
+    public List<TechOperation> findLastTechOperation(){
+        log.trace(">>findLastTechOperation");
+        return techOperationRepository.findLastTechOperation();
+    }
 
 }

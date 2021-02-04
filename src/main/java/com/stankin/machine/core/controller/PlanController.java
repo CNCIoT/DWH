@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,4 +41,11 @@ public class PlanController {
         planService.delete(plan);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/findPlanDateByLocationId")
+    public ResponseEntity<List<Date>> findByLocation(@NotNull @RequestParam("locationId") Long locationId){
+        List<Date> dateList = planService.findByLocation(locationId);
+        return ResponseEntity.ok(dateList);
+    }
+
 }
