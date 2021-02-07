@@ -36,9 +36,7 @@ public class JWTUtil {
 
     //извлечение authorities (внутри валидация токена)
     public String extractAuthorities(String token) {
-        Function<Claims, String> claimsListFunction = claims -> {
-            return (String)claims.get("authorities");
-        };
+        Function<Claims, String> claimsListFunction = claims -> (String)claims.get("authorities");
         return extractClaim(token, claimsListFunction);
     }
 

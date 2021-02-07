@@ -11,6 +11,6 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<InnerUser, Long> {
     List<InnerUser> findAll();
 
-    @Query("SELECT * FROM users WHERE login = :login")
-    InnerUser findByLogin(@Param("login") String login);
+    @Query("SELECT * FROM mdc.users WHERE email = :email")
+    InnerUser findByEmail(@Param("email") String email);
 }

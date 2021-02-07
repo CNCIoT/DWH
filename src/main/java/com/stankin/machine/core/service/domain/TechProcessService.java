@@ -1,6 +1,5 @@
 package com.stankin.machine.core.service.domain;
 
-import com.stankin.machine.core.domain.TechOperation;
 import com.stankin.machine.core.domain.TechProcess;
 import com.stankin.machine.core.repository.TechProcessRepository;
 import lombok.extern.slf4j.Slf4j;

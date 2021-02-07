@@ -14,11 +14,11 @@ import java.util.Map;
 /**
  * Стандартная обертка для ответов сервера
  */
-//@ControllerAdvice
+@ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Object> handleNodataFoundException(
+    public ResponseEntity<Object> handleNoDataFoundException(
             IllegalArgumentException ex, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("Reason", "некорректные данные для backend");

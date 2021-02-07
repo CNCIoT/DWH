@@ -12,9 +12,11 @@ import java.util.Date;
 public class InnerUser {
     @Id
     private Long id;
-    private String login;
-    private String password;
-    private Long employeeId;
+    private String email;
+    private String encryptedPassword;
+    private String resetPasswordToken;
+    private Date resetPasswordSentAt;
+    private Date rememberCreatedAt;
     private String role;
     private Date updatedAt;
     private Date createdAt;

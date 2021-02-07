@@ -8,7 +8,6 @@ import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.util.unit.DataSize;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -46,4 +45,5 @@ public class CollectorApplication {
 				.apis(RequestHandlerSelectors.basePackage("com.stankin.hackaton"))
 				.build();
 	}
+
 }

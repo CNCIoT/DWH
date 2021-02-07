@@ -3,7 +3,6 @@ package com.stankin.machine.core.service;
 import com.stankin.machine.core.domain.Plan;
 import com.stankin.machine.core.repository.PlanRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;

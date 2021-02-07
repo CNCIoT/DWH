@@ -54,20 +54,20 @@ public class CustomUserDetailsService implements UserDetailsService {
         userRepository.delete(innerUser);
     }
 
-    public Optional<InnerUser> findByLogin(String login){
-        InnerUser innerUser = userRepository.findByLogin(login);
+    public Optional<InnerUser> findByEmail(String email){
+        InnerUser innerUser = userRepository.findByEmail(email);
         return Optional.of(innerUser);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        InnerUser innerUser =  userRepository.findByLogin(username);
+        InnerUser innerUser =  userRepository.findByEmail(username);
         if(innerUser == null){
             throw new UsernameNotFoundException("Unknown user " + username);
         }
         UserDetails userDetails = User.builder()
-                .username(innerUser.getLogin())
-                .password(innerUser.getPassword())
+                .username(innerUser.getEmail())
+                .password(innerUser.getEncryptedPassword())
                 .roles(innerUser.getRole()).build();
         return userDetails;
     }
