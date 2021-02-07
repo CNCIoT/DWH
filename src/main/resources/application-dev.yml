@@ -15,5 +15,32 @@ spring:
       database: collector
 server:
   port: 5678
+jwt:
+  sessionTime: 120000000
+  secret: "MIIEpgIBAAKCAQEA0hmNwW/9wG23Gt7gK5osDQTxEvW9C2WkXwO2HPiaPE2xKAFt
+           JcHY66mylHpDqUtVcxOvPGWsKQplMW4LuruYTTu3zinnLZom1q98SaGl4Hn6gJKm
+           nvCBqYW1LJUaYYP/shhK2OY54aDBNrfknCJr6/HjY0nLBbZLfvdbBFXtgkHOqc5i
+           Lsfc8r6McOkLRB/Lg6iLuWhYOy9hNjLOnnPqg4waOgGAnrrgH6iMaUrFJTyPxclX
+           AsTNuC63ZaODUYuuvUvxskskz/vRiD4BSsHrVlZo/bBunwdjN5oGkDVdnqCst2fj
+           e1FnMe842SG+Voa+exWgcz8O8EK2kk+6nXbRQwIDAQABAoIBAQCw3KQRP3ZMA9AN
+           BauN6OXGO++4dzchnfmlplkqwDgOJZTJSZIZI7q4f4z+IoJMxEb1bY+pdylbDw4q
+           cynaksrd0TSkj2+1WrvxI56r2TDq66PtkgZDa9Cq5QyjsAyaJGUeBgcT2ZLGFe4w
+           YtNGgE97Oo+haGBIubGJ+y4aUz9x0u9oMkKj3LjqbWBkNvHCxme29GdzxSkm2lrH
+           Rb7QSAgENnfsovo4X+U69KuhQHINbLXgkmZ+O88gxd+XwEjAJQsGfhUiprjYlIZb
+           8DADk1vhKhqZgRG8b4zey+8Ag30Xp1BvKiWVoPbzcE5aG9Y4bNaIF4ZIZ+QQNJJa
+           g0wh1dmZAoGBAOr3PoFVR5c9kTcPiLHK1fmOax3qces7GZSArH8xnkkn4Pl8W9Oz
+           SY3lZQRM496PVZDxipsTm2Gm9/YydpDmhQo5D9vCDb6IlMgfsXDoImFV4FZlGZcw
+           qJr8b5s38qehnNOh1gzsbhuZcEye3paNkBwU1ACSyihwgucLzmjtK8gnAoGBAOTo
+           c4NUJZVj2Z1CpGZBIq6Dh3esQnr+0OXRxIR9yBMb495iW/hFjUawGYZsGAmiXgND
+           jhLNVlyUdIK0zXTwJcAWLjaE5ZDchpKKaB6RwxwBibAvyQU+ClKnZrwVbJwgmqlb
+           T3zhicIdtAzl3lkpPWTxnPnif2BAHAKz5xdt4aOFAoGBANUKxJPD3RuWaTqBTTHX
+           ddfGd/0x+4SLm4/4c28IcDpofCX5ydDTeNe9rLAPf3TmhXDccQ5W4sXR/HYwHy0W
+           tn4kauqYspmVgUFK6zoyYCndEYGEPYXGSrnsNM2KFuxDLsz8qfYh0VwY7aerTKs5
+           Q/cSM38pmT69dRNEsyyUDuR1AoGBAOStb9CP/KfcQ2a+T7wzb/FFRs0AEr4K2Cfv
+           QlJV0c19PExKmLRSz0sB284VKIJfaWn7T/Bqn88HI8n705Dx49Sck/g1FZ19IRc+
+           G7wGRBMzWhjf9AM/slJWF+TnxkPGsptjs+n+6n8460lDTrhl4YZ5dSeR5UwDX7g3
+           fzJBvHt9AoGBANfovWH0NLmDNpESR8IcURPeonu3VSk4Wv1z/ExD6PXgzGc5kxkz
+           tG7Q+LN+vSVKV7JwZI17OFQxt4FTGAMMn06cVf00+bA9jwpAArZNhZDgzUu5NrX2
+           69oejS3eeNjjFDiM6GRb6GEDPAX2l3u+fqKDYxGkkllxrEwzVC6S42/F"
 
 

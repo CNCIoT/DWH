@@ -15,5 +15,7 @@ spring:
       database: collector
 server:
   port: 5679
-
+jwt:
+  sessionTime: 120000000
+  secret: asdf123123
 

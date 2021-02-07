@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Стандартная обертка для ответов сервера
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
