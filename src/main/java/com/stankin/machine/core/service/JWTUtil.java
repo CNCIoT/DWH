@@ -23,7 +23,8 @@ public class JWTUtil {
     // генерация токена (кладем в него имя пользователя и authorities)
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        String commaSeparatedListOfAuthorities=  userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
+        String commaSeparatedListOfAuthorities=  userDetails.getAuthorities()
+                .stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
         claims.put("authorities", commaSeparatedListOfAuthorities);
         return createToken(claims, userDetails.getUsername());
     }

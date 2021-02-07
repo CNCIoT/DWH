@@ -14,6 +14,7 @@ public class InnerUser {
     private Long id;
     private String login;
     private String password;
+    private Long employeeId;
     private String role;
     private Date updatedAt;
     private Date createdAt;
