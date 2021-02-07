@@ -18,6 +18,8 @@ public class InnerUser {
     private Date resetPasswordSentAt;
     private Date rememberCreatedAt;
     private String role;
+    private String avatar;
+    private Long employeeId;
     private Date updatedAt;
     private Date createdAt;
 }
