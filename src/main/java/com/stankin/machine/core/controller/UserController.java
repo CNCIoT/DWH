@@ -19,7 +19,6 @@ public class UserController {
         this.customUserDetailsService = customUserDetailsService;
     }
 
-    @GetMapping
     public ResponseEntity<List<InnerUser>> findAll(){
         return ResponseEntity.ok(customUserDetailsService.findAll());
     }

@@ -1,6 +1,5 @@
 package com.stankin.machine.core.controller;
 
-import com.stankin.machine.core.domain.InnerUser;
 import com.stankin.machine.core.dto.AuthRequest;
 import com.stankin.machine.core.dto.AuthResponse;
 import com.stankin.machine.core.dto.UserAuthDTO;
@@ -13,7 +12,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController

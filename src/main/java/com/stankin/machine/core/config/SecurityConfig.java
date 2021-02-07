@@ -47,9 +47,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/authenticate").permitAll()
-                .and().authorizeRequests().antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/authenticate")
+                .permitAll()
+                .and().authorizeRequests().antMatchers("/tech/**").hasAuthority("ROLE_ADMIN")
+                .and().authorizeRequests().antMatchers("/detail/**").hasAnyAuthority("ROLE_ADMIN")
+                .and().authorizeRequests().antMatchers("/draft/**").hasAnyAuthority("ROLE_ADMIN")
                 .and().authorizeRequests().antMatchers("/employee/**").hasAnyAuthority("ROLE_ADMIN")
+                .and().authorizeRequests().antMatchers("/executor/**").hasAnyAuthority("ROLE_ADMIN")
+                .and().authorizeRequests().antMatchers("/report/**").hasAnyAuthority("ROLE_ADMIN")
+                .and().authorizeRequests().antMatchers("/location/**").hasAnyAuthority("ROLE_ADMIN")
+                .and().authorizeRequests().antMatchers("/machine/**").hasAnyAuthority("ROLE_ADMIN")
+                .and().authorizeRequests().antMatchers("/plan/**").hasAnyAuthority("ROLE_ADMIN")
+                .and().authorizeRequests().antMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN")
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
