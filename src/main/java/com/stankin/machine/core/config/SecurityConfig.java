@@ -53,7 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/detail/**").hasAnyAuthority("ROLE_ADMIN")
                 .and().authorizeRequests().antMatchers("/draft/**").hasAnyAuthority("ROLE_ADMIN")
                 .and().authorizeRequests().antMatchers("/employee/**").hasAnyAuthority("ROLE_ADMIN")
-                .and().authorizeRequests().antMatchers("/executor/**").hasAnyAuthority("ROLE_ADMIN")
                 .and().authorizeRequests().antMatchers("/report/**").hasAnyAuthority("ROLE_ADMIN")
                 .and().authorizeRequests().antMatchers("/location/**").hasAnyAuthority("ROLE_ADMIN")
                 .and().authorizeRequests().antMatchers("/machine/**").hasAnyAuthority("ROLE_ADMIN")
