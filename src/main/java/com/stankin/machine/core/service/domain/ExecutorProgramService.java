@@ -63,7 +63,7 @@ public class ExecutorProgramService {
         return executorProgramRepository.findAllWithGroupByEmpAndFileName(employeeId, fileName);
     }
 
-    public double calculateActualMachineTime(Long employeeId,
+    public Double calculateActualMachineTime(Long employeeId,
                                           String fileName,
                                           Date startDate,
                                           Date endDate) {

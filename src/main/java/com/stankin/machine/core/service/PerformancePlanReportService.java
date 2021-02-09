@@ -1,9 +1,6 @@
 package com.stankin.machine.core.service;
 
-import com.stankin.machine.core.domain.Employee;
-import com.stankin.machine.core.domain.ExecutorProgram;
-import com.stankin.machine.core.domain.TechOperation;
-import com.stankin.machine.core.domain.TechProcess;
+import com.stankin.machine.core.domain.*;
 import com.stankin.machine.core.dto.DateFilterDTO;
 import com.stankin.machine.core.dto.report.ReportExecutePlanEmpDTO;
 import com.stankin.machine.core.dto.report.ReportImplementDetailDTO;
@@ -49,7 +46,7 @@ public class PerformancePlanReportService {
         List<ReportExecutePlanEmpDTO> reportExecutePlanEmpDTOList = new ArrayList<>();
         List<Employee> employeeList = employeeService.findAllByStartAndEndDate(dateFilterDTO.getStartDate(), dateFilterDTO.getEndDate());
         for (Employee employee : employeeList) {
-            double executePlanFact = executorProgramService.calculateActualMachineTime(employee.getId(), null,
+            Double executePlanFact = executorProgramService.calculateActualMachineTime(employee.getId(), null,
                     dateFilterDTO.getStartDate(), dateFilterDTO.getEndDate());
             String empFullName = employeeService.formatterFullName(employee.getFirstName(),
                     employee.getLastName(), employee.getMiddleName());
@@ -64,6 +61,9 @@ public class PerformancePlanReportService {
                     Double scheduledMachineTime = techOperation.getScheduledMachineTime();
                     if (scheduledMachineTime != null) sumScheduledMachineTime += scheduledMachineTime;
                 }
+            }
+            if(executePlanFact == null){
+                executePlanFact = 0.00d;
             }
             ReportExecutePlanEmpDTO reportExecutePlanEmpDTO = new ReportExecutePlanEmpDTO(
                     empFullName, sumScheduledMachineTime, executePlanFact,
@@ -101,14 +101,23 @@ public class PerformancePlanReportService {
                 .findAllByStartAndEndDate(dateFilterDTO.getStartDate(), dateFilterDTO.getEndDate());
         List<ReportImplementDetailDTO> reportImplementDetailDTOList = new ArrayList<>();
         for (TechOperation techOperation : techOperationList) {
-            Long count = executorProgramList.stream()
+            Long factCount = executorProgramList.stream()
                     .filter(f -> f.getFileName().equals(techOperation.getFileNameProgram())).count();
             TechProcess techProcess =
                     techProcessService.findTechProcessByTechOperationId(techOperation.getId());
             if (techProcess != null) {
                 ReportImplementDetailDTO reportImplementDetailDTO = new ReportImplementDetailDTO();
                 reportImplementDetailDTO.setName(techProcess.getDetailName());
-                reportImplementDetailDTO.setFactAmount(count);
+                reportImplementDetailDTO.setFactAmount(factCount);
+                Plan plan = planService
+                        .findByTechOperationId(techOperation.getId(), dateFilterDTO.getStartDate());
+                if (plan != null) {
+                    reportImplementDetailDTO.setPlanAmount(plan.getAmount());
+                    if (plan.getAmount() != null) {
+                        reportImplementDetailDTO.setImplementPlan((double)
+                                (factCount / plan.getAmount()) * 100);
+                    }
+                }
                 reportImplementDetailDTOList.add(reportImplementDetailDTO);
             }
         }

@@ -14,7 +14,7 @@ public class Plan {
     private Date actualDate;
     private Long locationId;
     private Long techOperationId;
-    private Integer amount;
+    private Long amount;
     private Date updatedAt;
     private Date createdAt;
 }

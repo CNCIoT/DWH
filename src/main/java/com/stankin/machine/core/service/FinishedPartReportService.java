@@ -64,7 +64,7 @@ public class FinishedPartReportService {
                 empFullName = employeeService
                         .formatterFullName(employee.getFirstName(), employee.getLastName(), employee.getMiddleName());
             }
-            double actualMachineTime = executorProgramService
+            Double actualMachineTime = executorProgramService
                     .calculateActualMachineTime(employeeReportFinishedDetailDTO.getEmployeeId(),
                             employeeReportFinishedDetailDTO.getFileName(), dto.getStartDate(), dto.getEndDate());
 

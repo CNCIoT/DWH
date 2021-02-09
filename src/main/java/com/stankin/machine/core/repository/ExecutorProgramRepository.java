@@ -33,7 +33,7 @@ public interface ExecutorProgramRepository extends CrudRepository<ExecutorProgra
             "            AND created_at <= COALESCE(:end_date, now()))\n" +
             "            AND (:file_name IS NULL OR file_name = :file_name)\n" +
             "            AND (:employee_id IS NULL OR employee_id = :employee_id)")
-    double calculateActualMachineTime(@Param("employee_id") Long employeeId,
+    Double calculateActualMachineTime(@Param("employee_id") Long employeeId,
                                   @Param("file_name") String fileName,
                                   @Param("start_date") Date startDate,
                                   @Param("end_date") Date endDate);

@@ -55,5 +55,9 @@ public class PlanService {
         return planRepository.findByLocation(locationId);
     }
 
-    //public List<Plan>
+    public Plan findByTechOperationId(Long techOperationId, Date startDate) {
+        log.trace(">>findByTechOperationId... techOperationId={}, startDate={}", techOperationId, startDate);
+        return planRepository.findByTechOperationId(techOperationId, startDate);
+    }
+
 }
