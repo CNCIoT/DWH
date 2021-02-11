@@ -13,7 +13,12 @@ import org.springframework.stereotype.Service;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -76,17 +81,29 @@ public class PerformancePlanReportService {
         log.trace(">>reportPlanByTechOperationType... dateFilterDTO={}", dateFilterDTO);
         List<ReportTechOperationTypeDTO> reportTechOperationTypeDTOList = reportPlanByTechOperationTypeRepository
                 .reportPlanByTechOperation(dateFilterDTO.getStartDate(), dateFilterDTO.getEndDate());
-        for (ReportTechOperationTypeDTO reportTechOperationTypeDTO : reportTechOperationTypeDTOList) {
+        List<ReportTechOperationTypeDTO> resultReportTechOperationTypeList = new ArrayList<>();
+        for (ReportTechOperationTypeDTO reportTechOperationTypeDTO :
+                reportTechOperationTypeDTOList.stream()
+                        .filter(distinctByKey(ReportTechOperationTypeDTO::getTechOperationType))
+                        .collect(Collectors.toList())) {
+            ReportTechOperationTypeDTO tempReport = new ReportTechOperationTypeDTO();
+            tempReport.setTechOperationType(reportTechOperationTypeDTO.getTechOperationType());
+            Long factAmount = 0L;
+           for(ReportTechOperationTypeDTO innerReport: reportTechOperationTypeDTOList.stream()
+                   .filter(f->(f.getTechOperationType()).equals(reportTechOperationTypeDTO.getTechOperationType()))
+                   .collect(Collectors.toList())) {
+               factAmount += innerReport.getFactAmount();
+            }
+            tempReport.setFactAmount(factAmount);
             Plan plan = planService.findByTechOperationId(reportTechOperationTypeDTO.getTechOperationId(),
                     dateFilterDTO.getStartDate());
             if (plan != null) {
-                Long planAmount = plan.getAmount();
-                reportTechOperationTypeDTO.setPlanAmount(planAmount);
-                Long factAmount = reportTechOperationTypeDTO.getFactAmount();
-                reportTechOperationTypeDTO.setImplementPlan((double) (factAmount / planAmount) * 100);
+                tempReport.setPlanAmount(plan.getAmount());
+                tempReport.setImplementPlan((double) (factAmount / plan.getAmount()) * 100);
             }
+            resultReportTechOperationTypeList.add(tempReport);
         }
-        return reportTechOperationTypeDTOList;
+        return resultReportTechOperationTypeList;
     }
 
     public List<ReportImplementDetailDTO> reportImplementDetail(DateFilterDTO dateFilterDTO) {
@@ -117,5 +134,12 @@ public class PerformancePlanReportService {
             }
         }
         return reportImplementDetailDTOList;
+    }
+
+    public static <T> Predicate<T> distinctByKey(
+            Function<? super T, ?> keyExtractor) {
+
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 }
