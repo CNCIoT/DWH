@@ -6,7 +6,7 @@ import lombok.Data;
 public class ReportTechOperationTypeDTO {
     private Long techOperationId;
     private String techOperationType;
-    private Long planAmount;
-    private Long factAmount;
+    private Double planAmount;
+    private Double factAmount;
     private Double implementPlan;
 }

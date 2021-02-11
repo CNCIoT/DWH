@@ -45,6 +45,10 @@ public class PerformancePlanReportService {
         this.techProcessService = techProcessService;
     }
 
+    /**
+     * @param dateFilterDTO
+     * @return
+     */
     public List<ReportExecutePlanEmpDTO> reportExecutePlanByEmp(@NotNull DateFilterDTO dateFilterDTO) {
         log.trace(">>reportExecutePlanByEmp... dateFilterDTO={}", dateFilterDTO);
         List<ReportExecutePlanEmpDTO> reportExecutePlanEmpDTOList = new ArrayList<>();
@@ -77,6 +81,10 @@ public class PerformancePlanReportService {
         return reportExecutePlanEmpDTOList;
     }
 
+    /**
+     * @param dateFilterDTO
+     * @return
+     */
     public List<ReportTechOperationTypeDTO> reportPlanByTechOperationType(DateFilterDTO dateFilterDTO) {
         log.trace(">>reportPlanByTechOperationType... dateFilterDTO={}", dateFilterDTO);
         List<ReportTechOperationTypeDTO> reportTechOperationTypeDTOList = reportPlanByTechOperationTypeRepository
@@ -88,24 +96,31 @@ public class PerformancePlanReportService {
                         .collect(Collectors.toList())) {
             ReportTechOperationTypeDTO tempReport = new ReportTechOperationTypeDTO();
             tempReport.setTechOperationType(reportTechOperationTypeDTO.getTechOperationType());
-            Long factAmount = 0L;
-           for(ReportTechOperationTypeDTO innerReport: reportTechOperationTypeDTOList.stream()
-                   .filter(f->(f.getTechOperationType()).equals(reportTechOperationTypeDTO.getTechOperationType()))
-                   .collect(Collectors.toList())) {
-               factAmount += innerReport.getFactAmount();
+            Double factAmount = 0.00;
+            Double planAmount = 0.00;
+            for (ReportTechOperationTypeDTO innerReport : reportTechOperationTypeDTOList.stream()
+                    .filter(f -> (f.getTechOperationType()).equals(reportTechOperationTypeDTO.getTechOperationType()))
+                    .collect(Collectors.toList())) {
+                factAmount += innerReport.getFactAmount();
+                Plan plan = planService.findByTechOperationId(innerReport.getTechOperationId(),
+                        dateFilterDTO.getStartDate());
+                if (plan != null) {
+                    planAmount += plan.getAmount();
+                }
             }
+            tempReport.setPlanAmount(planAmount);
             tempReport.setFactAmount(factAmount);
-            Plan plan = planService.findByTechOperationId(reportTechOperationTypeDTO.getTechOperationId(),
-                    dateFilterDTO.getStartDate());
-            if (plan != null) {
-                tempReport.setPlanAmount(plan.getAmount());
-                tempReport.setImplementPlan((double) (factAmount / plan.getAmount()) * 100);
-            }
+            tempReport.setImplementPlan(factAmount  /
+                    (planAmount == 0L ? 1.00 : planAmount) * 100.00);
             resultReportTechOperationTypeList.add(tempReport);
         }
         return resultReportTechOperationTypeList;
     }
 
+    /**
+     * @param dateFilterDTO
+     * @return
+     */
     public List<ReportImplementDetailDTO> reportImplementDetail(DateFilterDTO dateFilterDTO) {
         log.trace(">>reportImplementDetail... dateFilterDTO={}", dateFilterDTO);
         List<TechOperation> techOperationList = techOperationService.findLastTechOperation();

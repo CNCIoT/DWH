@@ -45,7 +45,7 @@ public class ReportPlanByTechOperationTypeRepositoryImpl implements ReportPlanBy
         return jdbcTemplate.query(SQL, parameters, (rs, rowNum) -> {
             ReportTechOperationTypeDTO reportTechOperationTypeDTO = new ReportTechOperationTypeDTO();
             reportTechOperationTypeDTO.setTechOperationType(rs.getString("operation_name"));
-            reportTechOperationTypeDTO.setFactAmount(rs.getLong("fact"));
+            reportTechOperationTypeDTO.setFactAmount(rs.getDouble("fact"));
             reportTechOperationTypeDTO.setTechOperationId(rs.getLong("tech_operation_id"));
             return reportTechOperationTypeDTO;
         });
