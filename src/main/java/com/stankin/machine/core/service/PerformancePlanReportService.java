@@ -31,7 +31,6 @@ public class PerformancePlanReportService {
                                         TechOperationService techOperationService,
                                         ReportPlanByTechOperationTypeRepository reportPlanByTechOperationTypeRepository,
                                         PlanService planService,
-                                        TechOperationTypeService techOperationTypeService,
                                         TechProcessService techProcessService) {
         this.executorProgramService = executorProgramService;
         this.employeeService = employeeService;
@@ -62,7 +61,7 @@ public class PerformancePlanReportService {
                     if (scheduledMachineTime != null) sumScheduledMachineTime += scheduledMachineTime;
                 }
             }
-            if(executePlanFact == null){
+            if (executePlanFact == null) {
                 executePlanFact = 0.00d;
             }
             ReportExecutePlanEmpDTO reportExecutePlanEmpDTO = new ReportExecutePlanEmpDTO(
@@ -78,19 +77,15 @@ public class PerformancePlanReportService {
         List<ReportTechOperationTypeDTO> reportTechOperationTypeDTOList = reportPlanByTechOperationTypeRepository
                 .reportPlanByTechOperation(dateFilterDTO.getStartDate(), dateFilterDTO.getEndDate());
         for (ReportTechOperationTypeDTO reportTechOperationTypeDTO : reportTechOperationTypeDTOList) {
-            String techOperationTypeName = reportTechOperationTypeDTO.getTechOperationType();
-            if (techOperationTypeName != null) {
-                // Optional<TechOperationType> techOperationTypeOptional = techOperationTypeService
-                //         .findByName(techOperationTypeName);
-                //  if(techOperationTypeOptional.isPresent()){
-                //      TechOperationType techOperationType = techOperationTypeOptional.get();
-                //   techOperationService.
-                //techOperationService.findByName(tec)
+            Plan plan = planService.findByTechOperationId(reportTechOperationTypeDTO.getTechOperationId(),
+                    dateFilterDTO.getStartDate());
+            if (plan != null) {
+                Long planAmount = plan.getAmount();
+                reportTechOperationTypeDTO.setPlanAmount(planAmount);
+                Long factAmount = reportTechOperationTypeDTO.getFactAmount();
+                reportTechOperationTypeDTO.setImplementPlan((double) (factAmount / planAmount) * 100);
             }
         }
-
-        //techOperationService.findByName(reportTechOperationTypeDTO)
-        // executorProgramService.fi
         return reportTechOperationTypeDTOList;
     }
 
