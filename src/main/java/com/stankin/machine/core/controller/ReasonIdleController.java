@@ -1,7 +1,7 @@
 package com.stankin.machine.core.controller;
 
 import com.stankin.machine.core.domain.ReasonIdle;
-import com.stankin.machine.core.service.ReasonIdleService;
+import com.stankin.machine.core.service.domain.ReasonIdleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

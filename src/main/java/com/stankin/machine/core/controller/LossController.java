@@ -1,7 +1,7 @@
 package com.stankin.machine.core.controller;
 
 import com.stankin.machine.core.domain.Loss;
-import com.stankin.machine.core.service.LossService;
+import com.stankin.machine.core.service.domain.LossService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
