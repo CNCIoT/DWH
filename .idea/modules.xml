@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/machine-core.iml" filepath="$PROJECT_DIR$/machine-core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/report-module/report-module.iml" filepath="$PROJECT_DIR$/report-module/report-module.iml" />
-    </modules>
-  </component>
-</project>
