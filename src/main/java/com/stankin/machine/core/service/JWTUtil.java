@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +63,10 @@ public class JWTUtil {
 
 
     private Date expireTimeFromNow() {
-        return new Date(System.currentTimeMillis() + sessionTime);
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.YEAR, 99);
+        return c.getTime();
+       // return new Date(System.currentTimeMillis() + sessionTime);
     }
 }
