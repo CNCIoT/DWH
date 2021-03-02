@@ -1,7 +1,7 @@
 package com.stankin.machine.core.controller;
 
 import com.stankin.machine.core.dto.report.IdleRequestFilterDTO;
-import com.stankin.machine.core.service.IdleDynamicService;
+import com.stankin.machine.core.service.domain.IdleDynamicService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;

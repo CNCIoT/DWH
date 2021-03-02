@@ -1,4 +1,4 @@
-package com.stankin.machine.core.controller;
+package com.stankin.machine.core.service.domain;
 
 import com.stankin.machine.core.dto.report.IdleRequestFilterDTO;
 import org.springframework.stereotype.Service;
