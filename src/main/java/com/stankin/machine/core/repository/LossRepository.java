@@ -4,4 +4,6 @@ import com.stankin.machine.core.domain.Loss;
 import org.springframework.data.repository.CrudRepository;
 
 public interface LossRepository extends CrudRepository<Loss, Long> {
+
+
 }

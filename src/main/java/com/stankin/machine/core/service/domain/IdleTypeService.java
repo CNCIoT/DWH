@@ -48,4 +48,9 @@ public class IdleTypeService {
         log.trace(">>delete... idleType={}", idleType);
         idleTypeRepository.delete(idleType);
     }
+
+    public IdleType findByKind(String kind) {
+        log.trace(">>findByKind.. kind={}", kind);
+        return idleTypeRepository.findByKind(kind);
+    }
 }

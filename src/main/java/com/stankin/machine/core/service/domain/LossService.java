@@ -1,12 +1,15 @@
 package com.stankin.machine.core.service.domain;
 
+import com.stankin.machine.core.domain.IdleDateReport;
 import com.stankin.machine.core.domain.Loss;
+import com.stankin.machine.core.repository.IdleDateReportRepository;
 import com.stankin.machine.core.repository.LossRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,9 +17,12 @@ import java.util.Optional;
 public class LossService {
 
     private final LossRepository lossRepository;
+    private final IdleDateReportRepository idleDateReportRepository;
 
-    public LossService(LossRepository lossRepository) {
+    public LossService(LossRepository lossRepository,
+                       IdleDateReportRepository idleDateReportRepository) {
         this.lossRepository = lossRepository;
+        this.idleDateReportRepository = idleDateReportRepository;
     }
 
     public Optional<Loss> findById(Long id){
@@ -42,5 +48,10 @@ public class LossService {
     public void delete(@NotNull Loss loss){
         log.trace(">>delete... loss={}", loss);
         lossRepository.delete(loss);
+    }
+
+    public List<IdleDateReport> findByIdleTypeWithDate(Long idleTypeId, Date startDate, Date endDate){
+        log.trace(">>findByIdleTypeWithDate... idleTypeId={}, startDate={}, endDate={}", idleTypeId, startDate, endDate);
+        return idleDateReportRepository.findByIdleTypeWithDate(idleTypeId, startDate, endDate);
     }
 }
